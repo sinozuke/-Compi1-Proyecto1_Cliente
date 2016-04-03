@@ -131,6 +131,14 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     private void Modificar(){
         this.selecionar_modificar();
         this.setVisible(false);
+        Interfaz_Productos.Modificar_Producto.mostrarinfo(modificar.getId(),
+                modificar.getNombrre(),
+                String.valueOf(modificar.getCantidad()),
+                modificar.getMarca(),
+                modificar.getColor(),
+                String.valueOf(modificar.getTamaño()),
+                modificar.getImg(),
+                modificar.getSucursal());
         Interfaz_Productos.Modificar_Producto.setVisible(true);
     }
     
