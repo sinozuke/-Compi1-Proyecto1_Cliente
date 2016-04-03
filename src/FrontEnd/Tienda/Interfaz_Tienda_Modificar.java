@@ -11,6 +11,7 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import org.apache.soap.encoding.soapenc.Base64;
 
 /**
  *
@@ -25,6 +26,29 @@ public class Interfaz_Tienda_Modificar extends javax.swing.JFrame {
      */
     public Interfaz_Tienda_Modificar() {
         initComponents();
+    }
+    
+    public void colocarinfo(int codigo, int propietario, String nombre, String dirreccion, int telefono, String path){
+        txtcodigo.setText(String.valueOf(codigo));
+        txtid.setText(String.valueOf(propietario));
+        txtnombre.setText(nombre);
+        txtdire.setText(dirreccion);
+        txttelefono.setText(String.valueOf(telefono));
+        if(path.equals("null")){
+            lblimg.setText("no imagen");
+        }else{
+            lblimg.setIcon(retornarimagen(path));
+        }
+        
+    }
+    
+    private ImageIcon retornarimagen(String codigo_img){
+        try{
+            return new ImageIcon(Base64.decode(codigo_img));
+        }catch(Exception ex){
+            System.out.println(ex.getCause());
+            return null;
+        }
     }
     
     private void modi(){
