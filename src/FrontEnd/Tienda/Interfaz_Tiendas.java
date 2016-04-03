@@ -71,7 +71,15 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
                 txtnombre.setText(t.getNombre());
                 txtdirreccion.setText(t.getDirreccion());
                 txttelefono.setText(String.valueOf(t.getTelefono()));
-                try{lblimg.setIcon(retornarimagen(t.getImg()));}catch(Exception ex){lblimg.setText("no imagen");}
+                if(t.getImg().equals("null")){
+                    lblimg.setText("no imagen");
+                }else{
+                    try{
+                        lblimg.setIcon(retornarimagen(t.getImg()));
+                    }catch(Exception ex){
+                        lblimg.setText("no imagen");
+                    }
+                }
                 this.bloquear();
             }
         });
@@ -91,6 +99,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
         if(localizar_tienda()!=null){
             Interfaz_Tiendas.modificar = localizar_tienda();
             this.setVisible(false);
+            Interfaz_Tiendas.Modificar_Tienda.colocarinfo(modificar.getCodigo(), modificar.getPropietario(), modificar.getNombre(), modificar.getDirreccion(), modificar.getTelefono(), modificar.getImg());
             Interfaz_Tiendas.Modificar_Tienda.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "no se ha encontrado la tienda a modificar");
