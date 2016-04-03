@@ -224,7 +224,6 @@ public class Interfaz_Nuevo_Usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txttelefonoKeyTyped
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-
         Log_in.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
