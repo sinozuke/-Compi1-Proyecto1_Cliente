@@ -111,6 +111,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
             Interfaz_Tiendas.modificar = localizar_tienda();
             this.setVisible(false);
             Catalogo_Productos.get_productos();
+            Catalogo_Productos.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "no se ha encontrado la tienda para mostrar sus productos");
         }
@@ -159,9 +160,21 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
             this.setVisible(false);
             JOptionPane.showMessageDialog(this, "Esperando Respuesta Del Servidor");
         }else{
-            JOptionPane.showMessageDialog(this, "Algo Mal Courrio");
+            JOptionPane.showMessageDialog(this, "Algo Mal Ocurrio");
         }
-
+    }
+    
+    public void eliminardelista(int codigo){
+        ArrayList<Tienda> nuevalista = new ArrayList();
+        tiendas.stream().forEach((Tienda t)->{
+            if(t.getCodigo()!=codigo){
+                nuevalista.add(t);
+            }
+        });
+        tiendas.clear();
+        tiendas = (ArrayList<Tienda>)nuevalista.clone();
+        catalogo_tiendas.removeAllItems();
+        this.cargar_tiendas();
     }
 
     /**
@@ -428,19 +441,19 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        salir();
+        this.salir();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        nueva_tienda();
+        this.nueva_tienda();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void catalogo_tiendasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_catalogo_tiendasItemStateChanged
-        mostrar_info();
+        this.mostrar_info();
     }//GEN-LAST:event_catalogo_tiendasItemStateChanged
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        eliminar();
+        this.eliminar();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

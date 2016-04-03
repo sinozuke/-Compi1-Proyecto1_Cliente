@@ -28,15 +28,29 @@ public class Interfaz_Producto_Nuevo extends javax.swing.JFrame {
     }
     
     private void nuevo(){
-        conexion.CrearProducto(Integer.parseInt(txtcodigo.getText()),
-                txtnombre.getText(),
-                txtcantidad.getText(),
-                txtmarca.getText(),
-                txtcolor.getText(),
-                txttamaño.getText(),
-                path,
-                Integer.parseInt(txtsucursal.getText()));
-    }
+        if(!(txtcodigo.getText().equals("")
+                || txtnombre.getText().equals("")
+                || txtcantidad.getText().equals("")
+                || txtmarca.getText().equals("")
+                || txtcolor.getText().equals("")
+                || txttamaño.getText().equals(""))
+                ||
+                !(txtcodigo.getText()==null
+                || txtnombre.getText()==null
+                || txtcantidad.getText()==null
+                || txtmarca.getText()==null
+                || txtcolor.getText()==null
+                || txttamaño.getText()==null)){
+            conexion.CrearProducto(Integer.parseInt(txtcodigo.getText()),
+                    txtnombre.getText(),
+                    txtcantidad.getText(),
+                    txtmarca.getText(),
+                    txtcolor.getText(),
+                    txttamaño.getText(),
+                    path,
+                    Integer.parseInt(txtsucursal.getText()));
+            }
+        }
     
     
     
