@@ -1,1 +1,68 @@
+package BackEnd.Analizadores;
 
+import java_cup.runtime.*;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.console;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Log_in;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Tiendas;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Productos;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;
+import BackEnd.DOA.Error;
+import BackEnd.DOA.Producto;
+import BackEnd.DOA.Tienda;
+import BackEnd.DOA.Usuario;
+import java.util.ArrayList;
+
+parser code
+{:
+    /**Metodo al que se llama automáticamente ante algún error sintactico.*/
+    public void syntax_error(Symbol s){
+		System.out.println("Error en la Línea " + (s.right+1) +" Columna "+s.left+ ". Identificador "
+        +s.value + " no reconocido.");
+    }
+
+    /**Metodo al que se llama en el momento en que ya no es posible una recuperación de
+    errores.*/
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+		System.out.println("Error en la Línea " + (s.right+1)+ "Columna "+s.left+". Identificador " +
+        s.value + " no reconocido.");
+    }
+:}
+
+action code
+{:
+
+		
+:}
+terminal String numero,cadena,bool;
+terminal DI,DF;
+terminal Reply,Access,Registro,Modificar,Eliminacion,Tienda,usuario,Producto,ERR,Lista;
+terminal Igual,cadena,bool,numero;
+terminal TIPO,PO,FILA,COLUMNA,DESC;
+terminal Id,Sucursal,Direccion,Nombre,Telefono,Codigo,Propietario,Cantidad,Marca,Color,Tamano,Sucursal;
+
+non terminal INICIA,CONTENIDO,USU,USUR,TR;
+non terminal LOG,REGIS,DATALOG,DATALOGP;
+non terminal ArrayList<Object> ERRORES LISTA;
+non terminal Producto PRODUCTO;
+non terminal Tienda TIENDA;
+non terminal Usuario USUARIO;
+non terminal Error ERROR;
+
+start with INICIA;
+
+INICIA ::= DI Reply DI CONTENIDO DI Reply DF {::}
+
+CONTENIDO ::=   DI usuario DI USU DI usuario DF {::}
+                |
+
+USU ::=  LOG
+        |USUR
+
+USUR ::= DI Registro Id Igual numero DI bool  DI Registro DF
+
+LOG ::= DATALOGP DATALOG
+        |DATALOG
+
+DATALOG ::= DI Id DI numero DI Id DF
+            |DI Access DI bool DI Access DF
+ 
