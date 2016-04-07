@@ -22,7 +22,9 @@ public class Compi1Proyecto1_Cliente201403775 {
     private static final Buzon Buzon1 = new Buzon();
     private static final Thread Buzon = new Thread(Buzon1);
     
+    
     public static final Interfaz_Consola consola = new Interfaz_Consola();
+    public static final Thread console = new Thread(consola);
     
     public static Usuario usuario = new Usuario();
     public static Interfaz_Login Log_in;
@@ -34,6 +36,7 @@ public class Compi1Proyecto1_Cliente201403775 {
     public static void main(String[] args) {
         // TODO code application logic here
         Buzon.start();
+        console.start();
         Log_in = new Interfaz_Login();
         Catalogo_Tiendas = new Interfaz_Tiendas();
         Catalogo_Productos = new Interfaz_Productos();

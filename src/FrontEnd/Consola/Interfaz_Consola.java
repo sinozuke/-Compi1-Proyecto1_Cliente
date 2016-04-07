@@ -4,6 +4,24 @@
  * and open the template in the editor.
  */
 package FrontEnd.Consola;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.conexion;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import BackEnd.DOA.Error;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,11 +29,50 @@ package FrontEnd.Consola;
  */
 public class Interfaz_Consola extends javax.swing.JFrame implements Runnable{
 
+    private ArrayList<Error> errores;
+    private PdfWriter instance;
+    private Document errorpdf;
+    private PdfPTable tabla;
+    private Paragraph inilex;
+    private Paragraph inisin;
+    private Paragraph inisem;
+    private Paragraph fin;
+    private final Font fuente = new Font();
+    private PdfPCell cabeza1;
+    private PdfPCell cabeza2;
+    private PdfPCell cabeza3;
+    private PdfPCell Pie;
+    private final JFileChooser fc = new JFileChooser();
+    private File entrada;
+    private BufferedReader br;
     /**
      * Creates new form Interfaz_Consola
      */
     public Interfaz_Consola() {
         initComponents();
+        fuente.setSize(18);
+    }
+
+    public void setErrores(ArrayList<Error> errores) {
+        this.errores = errores;
+    }
+        
+    private void cargar(){
+        fc.showOpenDialog(this);
+        entrada = new File(fc.getSelectedFile().getAbsolutePath());
+        if(entrada.canRead()){
+            try {
+                br = new BufferedReader(new FileReader(entrada));
+                while(br.readLine()!=null){
+                    txtconsola.append(br.readLine()+"\n");
+                }
+                br.close();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error: " + ex.getCause());        
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "El Archivo no Tiene Permisos para ser leido");
+        }
     }
 
     /**
@@ -26,7 +83,107 @@ public class Interfaz_Consola extends javax.swing.JFrame implements Runnable{
     
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setVisible(true);
+    }
+    
+    private void mandar_request(){
+        conexion.Consola(txtconsola.getText());
+    }
+    public void reply(String reply){
+        this.txtsalida.setText(reply);
+    }
+    
+    public void visualizar_pdf(){
+        if(!errores.isEmpty()){
+            try {
+                instance = PdfWriter.getInstance(errorpdf, new FileOutputStream("err.pdf"));
+
+                errorpdf.open();
+
+                tabla = new PdfPTable(3);
+
+                inilex = new Paragraph("Errores Lexicos",fuente);
+                inilex.setLeading(0,1);
+
+                inisin = new Paragraph("Errores Sintacticos",fuente);
+                inisin.setLeading(0,1);
+
+                inisem = new Paragraph("Errores Semanticos",fuente);
+                inisem.setLeading(0,1);
+
+                fin = new Paragraph("--- Fin de Errores ---",fuente);
+                fin.setLeading(0,1);
+
+                cabeza1 = new PdfPCell(inilex);
+                cabeza1.setColspan(3);
+
+                cabeza2 = new PdfPCell(inisin);
+                cabeza2.setColspan(3);
+
+                cabeza3 = new PdfPCell(inisem);
+                cabeza3.setColspan(3);
+
+                Pie = new PdfPCell(fin);
+                Pie.setColspan(3);
+
+                tabla.setWidthPercentage(100);
+
+                tabla.addCell(cabeza1);
+
+                errores.stream().forEach((Error err)->{
+                    if(err.getTipo().equals("lexico")){
+                        tabla.addCell(new PdfPCell(new Paragraph("No.Fila")));
+                        tabla.addCell(new PdfPCell(new Paragraph("No.Columna")));
+                        tabla.addCell(new PdfPCell(new Paragraph("Descripccion")));
+                        
+                        tabla.addCell(String.valueOf(err.getFila()));
+                        tabla.addCell(String.valueOf(err.getColumna()));
+                        tabla.addCell(err.getDescripccion());
+                    }
+                });
+
+                tabla.addCell(cabeza2);
+
+                errores.stream().forEach((Error err)->{
+                    if(err.getTipo().equals("sintactico")){
+                        tabla.addCell(new PdfPCell(new Paragraph("No.Fila")));
+                        tabla.addCell(new PdfPCell(new Paragraph("No.Columna")));
+                        tabla.addCell(new PdfPCell(new Paragraph("Descripccion")));
+                        
+                        tabla.addCell(String.valueOf(err.getFila()));
+                        tabla.addCell(String.valueOf(err.getColumna()));
+                        tabla.addCell(err.getDescripccion());
+                    }
+                });
+
+                tabla.addCell(cabeza3);
+
+                errores.stream().forEach((Error err)->{
+                    if(err.getTipo().equals("semantico")){
+                        tabla.addCell(new PdfPCell(new Paragraph("No.Fila")));
+                        tabla.addCell(new PdfPCell(new Paragraph("No.Columna")));
+                        tabla.addCell(new PdfPCell(new Paragraph("Descripccion")));
+                        
+                        tabla.addCell(String.valueOf(err.getFila()));
+                        tabla.addCell(String.valueOf(err.getColumna()));
+                        tabla.addCell(err.getDescripccion());
+                    }
+                });
+
+                tabla.addCell(Pie);
+
+                errorpdf.add(tabla);
+                errorpdf.close();
+            
+            Runtime.getRuntime().exec("evince ./errlex.pdf");
+            
+            } catch (DocumentException | FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al Guardar Pdf");    
+            } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "linux No  pude abrir evince");
+                    System.out.println("err al ejecutar evince (pdfs()): " + ex.getCause());
+            }    
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -151,19 +308,20 @@ public class Interfaz_Consola extends javax.swing.JFrame implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        this.mandar_request();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        this.visualizar_pdf();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        this.txtconsola.setText("");
+        this.txtsalida.setText("");
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        this.cargar();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
