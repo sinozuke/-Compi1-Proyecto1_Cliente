@@ -6,6 +6,7 @@ import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente20140
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Tiendas;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Productos;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;
+import javax.swing.JOptionPane;
 import BackEnd.DOA.Error;
 import BackEnd.DOA.Producto;
 import BackEnd.DOA.Tienda;
@@ -34,35 +35,110 @@ action code
 		
 :}
 terminal String numero,cadena,bool;
-terminal DI,DF;
+terminal DI,DF,Igual;
 terminal Reply,Access,Registro,Modificar,Eliminacion,Tienda,usuario,Producto,ERR,Lista;
-terminal Igual,cadena,bool,numero;
 terminal TIPO,PO,FILA,COLUMNA,DESC;
 terminal Id,Sucursal,Direccion,Nombre,Telefono,Codigo,Propietario,Cantidad,Marca,Color,Tamano,Sucursal;
 
-non terminal INICIA,CONTENIDO,USU,USUR,TR;
-non terminal LOG,REGIS,DATALOG,DATALOGP;
-non terminal ArrayList<Object> ERRORES LISTA;
-non terminal Producto PRODUCTO;
-non terminal Tienda TIENDA;
-non terminal Usuario USUARIO;
-non terminal Error ERROR;
+non terminal INICIA;
+non terminal String CONTENIDO,CONTENIDOP;
+non terminal Usuario USU,USUR,UINFO,UINFOP;
+non terminal Tienda TR,TC,TM,TE,TINFO,TINFOP;
+non terminal Producto PR,PM.PE,PC,PINFO,PINFOP;
+non terminal Error ERRC,ERRCP,POC,POCP;
+non terminal String LOG,REGIS,DATALOG,DATALOGP;
+non terminal ArrayList<Object> LISTA
+non terminal Object CL,CLP;
 
 start with INICIA;
 
 INICIA ::= DI Reply DI CONTENIDO DI Reply DF {::}
 
-CONTENIDO ::=   DI usuario DI USU DI usuario DF {::}
-                |
+CONTENIDO ::= CONTENIDOP CONTENIDO
+            |CONTENIDO
+
+CONTENIDOP ::=   DI usuario DI USU DI usuario DF {::}
+                |DI Tienda DI TC DI Tienda DF
+                |DI Producto DI PC DI Producto DF
+                |DI ERR DI ERRC DI ERR DF
+                |LISTA
+
+LISTA ::= DI Lista DI CL DI Lista DF
+CL ::=   CLP CL
+        |CLP
+
+CLP ::=  PC
+        |TC
+        |USU
+
+ERRC ::=     ERRCP ERRC
+            |ERRCP
+
+ERRCP ::=    DI  TIPO DI cadena DI TIPO DF
+            |DI  PO DI POC DI PO DF
+            |DI DESC DI cadena DI DESC DF
+
+POC ::=  POCP POC
+        |POCP
+
+POCP ::=     DI FILA DI numero DI FILA DF
+            |DI COLUMNA DI numero DI COLUMNA DF
+
+PC ::=   PR
+        |PM
+        |PE
+        |PINFO
+
+TC ::=   TR
+        |TM
+        |TE
+        |TINFO
 
 USU ::=  LOG
         |USUR
+        |UINFO
+
+PINFO ::=    PINFOP PINFO
+            |PINFOP
+
+TINFO ::=    TINFOP TINFO
+            |TINFOP
+
+USU ::=  UINFOP UINFO
+        |UINFOP
+
+PINFOP ::=   DI Codigo DI numero DI Codigo DF
+            |DI Nombre DI cadena DI Nombre DF
+            |DI Cantidad DI numero DI Cantidad DF
+            |DI Marca DI cadena DI Marca DF
+            |DI Color DI cadena DI Color DF
+            |DI Tamano DI numero DI Tamano DF
+            |DI Sucursal DI numero DI Sucursal DF
+
+TINFOP ::=   DI Codigo DI numero DI Codigo DF
+            |DI Propietario DI numero DI Propietario DF
+            |DI Nombre DI cadena DI Nombre DF
+            |DI Direccion DI cadena DI Direccion DF
+            |DI Telefono DI numero DI Telefono DF
+
+UINFOp ::= DI DI DI DF
+
+PR ::=  DI Registro Id Igual numero Sucursal Igual numero DI bool  DI Registro DF
+PM ::=  DI Modificar Id Igual numero Sucursal Igual numero DI bool DI Modificar DF
+PE ::=  DI Eliminacion Id Igual numero Sucursal Igual numero DI bool DI Eliminacion DF
+
+TR ::= DI Registro Id Igual numero DI bool  DI Registro DF
+TM ::= DI Modificar Id Igual numero DI bool DI Modificar DF
+TE ::= DI Eliminacion Id Igual numero DI bool DI Eliminacion DF
 
 USUR ::= DI Registro Id Igual numero DI bool  DI Registro DF
 
-LOG ::= DATALOGP DATALOG
-        |DATALOG
+LOG ::=  LOG:val1 DATALOGP:val2                         {:  RESULT = new StringBuilder();
+                                                            if(val1.equals("true") || val1.equals("false") || val1.equals("fail")){
+                                                            }else if(val2.equals("true") || val2.equals("false") || val2.equals("fail")){
+                                                            }
+:}
+        |DATALOGp:val                                   {:  RESULT = new String(val);:};
 
-DATALOG ::= DI Id DI numero DI Id DF
-            |DI Access DI bool DI Access DF
- 
+DATALOGP ::=  DI Id DI numero:val DI Id DF           {:  RESULT = new String(val);:}
+            |DI Access DI bool:val DI Access DF      {:  RESULT = new String(val);:};
