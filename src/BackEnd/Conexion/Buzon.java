@@ -5,10 +5,10 @@
  */
 package BackEnd.Conexion;
 
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import BackEnd.Analizadores.Lexico_reply;
+import BackEnd.Analizadores.AnalizadorSintactico;
 /**
  *
  * @author sinozuke
@@ -16,9 +16,10 @@ import java.net.Socket;
 public class Buzon implements Runnable{
 
     private ServerSocket Buzon1;
-    private DataInputStream recividos;
     private Socket via;
-   
+    protected Lexico_reply ANAL_LEX;
+    protected AnalizadorSintactico ANAL_SIN;
+    
     public Buzon(){
         try{
             Buzon1 = new ServerSocket(3501);
@@ -30,18 +31,16 @@ public class Buzon implements Runnable{
 
     @Override
     public void run() {
-        String Recivido;
         while(true){
             try {
                 via = Buzon1.accept();
-                recividos = new DataInputStream(via.getInputStream());
-                Recivido = recividos.readUTF();
-                System.out.println(Recivido);
+                ANAL_LEX = new Lexico_reply(via.getInputStream());
+                ANAL_SIN = new AnalizadorSintactico(ANAL_LEX);
+                ANAL_SIN.parse();
                 via.close();
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 System.out.println(ex.getCause());
-            }
-            
+            }            
         }
     }
     
