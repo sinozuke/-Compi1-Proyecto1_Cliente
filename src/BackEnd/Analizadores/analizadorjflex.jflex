@@ -1,7 +1,7 @@
 package BackEnd.Analizadores;
 
 import java_cup.runtime.Symbol;
-import java.util.*
+import java.util.*;
 
 %%
 
@@ -15,12 +15,13 @@ import java.util.*
 %column
 
 %{
-}%
+%}
 
 numero =[0-9]+ "."? [0-9]*
 cadena = [\"] [^\"]* [\"] 
 ComentarioLinea = "//"([^\n\t])*(\t|\n) 
 ComentarioMultilinea= "#*" ([^*#]|[*])* "*#"
+%%
 
 "$"                     {return new Symbol(Simbolo.DI, yycolumn,yyline,yytext()); }
 "-$"			{return new Symbol(Simbolo.DF, yycolumn,yyline,yytext()); }
@@ -51,8 +52,6 @@ ComentarioMultilinea= "#*" ([^*#]|[*])* "*#"
 "color"                 {return new Symbol(Simbolo.Color, yycolumn,yyline,yytext()); }
 "tamaño"                {return new Symbol(Simbolo.Tamano, yycolumn,yyline,yytext()); }
 
-"sucursal"              {return new Symbol(Simbolo.Sucursal, yycolumn,yyline,yytext()); }
-
 "="                     {return new Symbol(Simbolo.Igual, yycolumn,yyline,yytext()); }
 {cadena}		{	String str=yytext();
                      		str = str.substring(1,str.length()-1);
@@ -67,6 +66,6 @@ ComentarioMultilinea= "#*" ([^*#]|[*])* "*#"
 {numero}                {return new Symbol(Simbolo.numero, yycolumn,yyline,yytext()); }
 
 {ComentarioLinea}       {}
-{ComentarioMultiLinea}  {}
+{ComentarioMultilinea}  {}
 [ \t\r\f\n]+		{}
 .			{System.out.println("cagada con: " + yytext());}

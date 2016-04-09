@@ -1,16 +1,12 @@
 package BackEnd.Analizadores;
 
 import java_cup.runtime.*;
-import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.console;
-import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Log_in;
-import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Tiendas;
-import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Productos;
-import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;
 import javax.swing.JOptionPane;
 import BackEnd.DOA.Error;
 import BackEnd.DOA.Producto;
 import BackEnd.DOA.Tienda;
 import BackEnd.DOA.Usuario;
+import BackEnd.DOA.Acess;
 import java.util.ArrayList;
 
 parser code
@@ -38,107 +34,141 @@ terminal String numero,cadena,bool;
 terminal DI,DF,Igual;
 terminal Reply,Access,Registro,Modificar,Eliminacion,Tienda,usuario,Producto,ERR,Lista;
 terminal TIPO,PO,FILA,COLUMNA,DESC;
-terminal Id,Sucursal,Direccion,Nombre,Telefono,Codigo,Propietario,Cantidad,Marca,Color,Tamano,Sucursal;
+terminal Id,Direccion,Nombre,Telefono,Codigo,Propietario,Cantidad,Marca,Color,Tamano,Sucursal;
 
 non terminal INICIA;
-non terminal String CONTENIDO,CONTENIDOP;
-non terminal Usuario USU,USUR,UINFO,UINFOP;
-non terminal Tienda TR,TC,TM,TE,TINFO,TINFOP;
-non terminal Producto PR,PM.PE,PC,PINFO,PINFOP;
+non terminal StringBuilder CONTENIDO,CONTENIDOP,R1;
+non terminal Usuario USU,UINFO,UINFOP;
+non terminal Tienda TC,TM,TE,TINFO,TINFOP,TCS;
+non terminal Producto PR,PM,PE,PC,PINFO,PINFOP,PCS;
 non terminal Error ERRC,ERRCP,POC,POCP;
-non terminal String LOG,REGIS,DATALOG,DATALOGP;
-non terminal ArrayList<Object> LISTA
+non terminal Acess DATALOGP,LOG;
+non terminal ArrayList<Object> LISTA;
 non terminal Object CL,CLP;
 
 start with INICIA;
 
-INICIA ::= DI Reply DI CONTENIDO DI Reply DF {::}
+INICIA ::= DI Reply DI CONTENIDO DI Reply DF                                            {::};
 
-CONTENIDO ::= CONTENIDOP CONTENIDO
-            |CONTENIDO
+CONTENIDO ::= CONTENIDO CONTENIDOP                                                      {::}
+            |CONTENIDOP                                                                  {::};
 
-CONTENIDOP ::=   DI usuario DI USU DI usuario DF {::}
-                |DI Tienda DI TC DI Tienda DF
-                |DI Producto DI PC DI Producto DF
-                |DI ERR DI ERRC DI ERR DF
-                |LISTA
+CONTENIDOP ::=   DI usuario DI USU DI usuario DF                                        {::}
+                |DI Tienda DI TCS DI Tienda DF                                           {::}
+                |DI Producto DI PCS DI Producto DF                                       {::}
+                |DI ERR DI ERRC DI ERR DF                                               {::}
+                |LISTA                                                                  {::};
 
-LISTA ::= DI Lista DI CL DI Lista DF
-CL ::=   CLP CL
-        |CLP
+LISTA ::= DI Lista DI PC DI Lista DF                                                    {::}
+        |DI Lista DI TC DI Lista DF                                                    {::};
 
-CLP ::=  PC
-        |TC
-        |USU
 
-ERRC ::=     ERRCP ERRC
-            |ERRCP
+ERRC ::=     ERRC ERRCP                                                                 {::}
+            |ERRCP                                                                      {::};
 
-ERRCP ::=    DI  TIPO DI cadena DI TIPO DF
-            |DI  PO DI POC DI PO DF
-            |DI DESC DI cadena DI DESC DF
+ERRCP ::=    DI  TIPO DI cadena DI TIPO DF                                              {::}
+            |DI  PO DI POC DI PO DF                                                     {::}
+            |DI DESC DI cadena DI DESC DF                                               {::};
 
-POC ::=  POCP POC
-        |POCP
+POC ::=  POC POCP                                                                       {::}
+        |POCP                                                                           {::};
 
-POCP ::=     DI FILA DI numero DI FILA DF
-            |DI COLUMNA DI numero DI COLUMNA DF
+POCP ::=     DI FILA DI numero DI FILA DF                                               {::}
+            |DI COLUMNA DI numero DI COLUMNA DF                                         {::};
 
-PC ::=   PR
+PC ::=   DI Producto DI PINFO DI Producto DF                                            {::};
+
+TC ::=   DI Tienda DI TINFO DI Tienda DF                                                                          {::};
+
+USU ::=  LOG                                                                            {::}
+        |R1                                                                           {::};
+
+PINFO ::=    PINFO PINFOP                                                               {::}
+            |PINFOP                                                                     {::};
+
+TINFO ::=    TINFO TINFOP                                                               {::}
+            |TINFOP                                                                     {::};
+
+
+PINFOP ::=   DI Codigo DI numero DI Codigo DF                                           {::}
+            |DI Nombre DI cadena DI Nombre DF                                           {::}
+            |DI Cantidad DI numero DI Cantidad DF                                       {::}
+            |DI Marca DI cadena DI Marca DF                                             {::}
+            |DI Color DI cadena DI Color DF                                             {::}
+            |DI Tamano DI numero DI Tamano DF                                           {::}
+            |DI Sucursal DI numero DI Sucursal DF                                       {::};
+
+
+TINFOP ::=   DI Codigo DI numero DI Codigo DF                                           {::}
+            |DI Propietario DI numero DI Propietario DF                                 {::}
+            |DI Nombre DI cadena DI Nombre DF                                           {::}
+            |DI Direccion DI cadena DI Direccion DF                                     {::}
+            |DI Telefono DI numero DI Telefono DF                                       {::};
+
+ PCS ::= PR
         |PM
-        |PE
-        |PINFO
+        |PE;
 
-TC ::=   TR
-        |TM
-        |TE
-        |TINFO
+TCS ::= TM
+        |TE;
+PR ::=  DI Registro Id Igual numero Sucursal Igual numero DI bool  DI Registro DF       {::};
 
-USU ::=  LOG
-        |USUR
-        |UINFO
+PM ::=  DI Modificar Id Igual numero Sucursal Igual numero DI bool DI Modificar DF      {::};
 
-PINFO ::=    PINFOP PINFO
-            |PINFOP
+PE ::=  DI Eliminacion Id Igual numero Sucursal Igual numero DI bool DI Eliminacion DF  {::};
 
-TINFO ::=    TINFOP TINFO
-            |TINFOP
+TM ::= DI Modificar Id Igual numero DI bool DI Modificar DF                             {::};
+TE ::= DI Eliminacion Id Igual numero DI bool DI Eliminacion DF                         {::};
 
-USU ::=  UINFOP UINFO
-        |UINFOP
+R1 ::= DI Registro Id Igual numero:val1 DI bool:val2  DI Registro DF                  {:  RESULT = new StringBuilder();
+                                                                                            RESULT.append("\t $registro id = ");
+                                                                                            RESULT.append(val1);
+                                                                                            RESULT.append("$ ");
+                                                                                            RESULT.append(val2);
+                                                                                            RESULT.append(" $registro-$\n");
+                                                                                            if(val2.equals("true")){
+                                                                                                JOptionPane.showMessageDialog(null,"Registro Exitoso");
+                                                                                            }else{
+                                                                                                JOptionPane.showMessageDialog(null,"El Registro del Usuario " + val1 + " ha Fallado");
+                                                                                            }
+:};
 
-PINFOP ::=   DI Codigo DI numero DI Codigo DF
-            |DI Nombre DI cadena DI Nombre DF
-            |DI Cantidad DI numero DI Cantidad DF
-            |DI Marca DI cadena DI Marca DF
-            |DI Color DI cadena DI Color DF
-            |DI Tamano DI numero DI Tamano DF
-            |DI Sucursal DI numero DI Sucursal DF
-
-TINFOP ::=   DI Codigo DI numero DI Codigo DF
-            |DI Propietario DI numero DI Propietario DF
-            |DI Nombre DI cadena DI Nombre DF
-            |DI Direccion DI cadena DI Direccion DF
-            |DI Telefono DI numero DI Telefono DF
-
-UINFOp ::= DI DI DI DF
-
-PR ::=  DI Registro Id Igual numero Sucursal Igual numero DI bool  DI Registro DF
-PM ::=  DI Modificar Id Igual numero Sucursal Igual numero DI bool DI Modificar DF
-PE ::=  DI Eliminacion Id Igual numero Sucursal Igual numero DI bool DI Eliminacion DF
-
-TR ::= DI Registro Id Igual numero DI bool  DI Registro DF
-TM ::= DI Modificar Id Igual numero DI bool DI Modificar DF
-TE ::= DI Eliminacion Id Igual numero DI bool DI Eliminacion DF
-
-USUR ::= DI Registro Id Igual numero DI bool  DI Registro DF
-
-LOG ::=  LOG:val1 DATALOGP:val2                         {:  RESULT = new StringBuilder();
-                                                            if(val1.equals("true") || val1.equals("false") || val1.equals("fail")){
-                                                            }else if(val2.equals("true") || val2.equals("false") || val2.equals("fail")){
-                                                            }
+LOG ::=  LOG:val1 DATALOGP:val2                                                         {:  RESULT = new Acess();
+                                                                                            if(val1.getId!=null){
+                                                                                                RESULT.setId(val1.getId());
+                                                                                                RESULT.setValor(val2.getValor());
+                                                                                                RESULT.concatenar(val1.getreply());
+                                                                                                RESULT.concatenar(val2.getreply());
+                                                                                            }else{
+                                                                                                RESULT.setId(val2.getId());
+                                                                                                RESULT.setValor(val1.getValor());
+                                                                                                RESULT.concatenar(val1.getreply());
+                                                                                                RESULT.concatenar(val2.getreply());
+                                                                                            }
+                                                                                            if(RESULT.getValor().equals("true")){
+                                                                                                usuario.setId(Integer.parseInt(RESULT.getId()));
+                                                                                                Catalogo_Tiendas.get_tiendas();
+                                                                                                Log_in.setVisible(false);
+                                                                                                JOptionPane.showMessageDialog(null,"Bienvenido usuario " + RESULT.getId() + "\n En Momentos se mostrara la ventana de Tiendas en Respuesta al Servidor... se Paciente");
+                                                                                            }else if(RESULT.getValor().equals("false")){
+                                                                                                JOptionPane.showMessageDialog(null,"Error: Acesso Denegado, la contraseña es incorrecta");
+                                                                                            }else if(RESULT.getValor().equals("fail")){
+                                                                                                JOptionPane.showMessageDialog(null,"Error: Acesso Fallido, no Existe Usuario");
+                                                                                            }
 :}
-        |DATALOGp:val                                   {:  RESULT = new String(val);:};
+        |DATALOGP:val                                                                   {:  RESULT = new Acess();
+                                                                                            RESULT = val;
+};
 
-DATALOGP ::=  DI Id DI numero:val DI Id DF           {:  RESULT = new String(val);:}
-            |DI Access DI bool:val DI Access DF      {:  RESULT = new String(val);:};
+DATALOGP ::=  DI Id DI numero:val DI Id DF                                              {:  RESULT = new Acess();
+                                                                                            RESULT.setId(val);
+                                                                                            RESULT.concatenar("\t $id$ ");
+                                                                                            RESULT.concatenar(val);
+                                                                                            RESULT.concatenar(" $id-$\n");
+:}
+             |DI Access DI bool:val DI Access DF                                        {:  RESULT = new Acess();
+                                                                                            RESULT.setValor(val);
+                                                                                            RESULT.concatenar("\t $access$ ");
+                                                                                            RESULT.concatenar(val);
+                                                                                            RESULT.concatenar(" $access-$\n");
+:};
