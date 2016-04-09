@@ -5,9 +5,14 @@ import javax.swing.JOptionPane;
 import BackEnd.DOA.Error;
 import BackEnd.DOA.Producto;
 import BackEnd.DOA.Tienda;
-import BackEnd.DOA.Usuario;
 import BackEnd.DOA.Acess;
 import java.util.ArrayList;
+
+/*
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Log_in;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Tiendas;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;
+*/
 
 parser code
 {:
@@ -38,24 +43,23 @@ terminal Id,Direccion,Nombre,Telefono,Codigo,Propietario,Cantidad,Marca,Color,Ta
 
 non terminal INICIA;
 non terminal StringBuilder CONTENIDO,CONTENIDOP,R1;
-non terminal Usuario USU,UINFO,UINFOP;
 non terminal Tienda TC,TM,TE,TINFO,TINFOP,TCS;
 non terminal Producto PR,PM,PE,PC,PINFO,PINFOP,PCS;
 non terminal Error ERRC,ERRCP,POC,POCP;
-non terminal Acess DATALOGP,LOG;
+non terminal Acess LOG,DATALOGP;
 non terminal ArrayList<Object> LISTA;
-non terminal Object CL,CLP;
 
 start with INICIA;
 
 INICIA ::= DI Reply DI CONTENIDO DI Reply DF                                            {::};
 
 CONTENIDO ::= CONTENIDO CONTENIDOP                                                      {::}
-            |CONTENIDOP                                                                  {::};
+            |CONTENIDOP                                                                 {::};
 
-CONTENIDOP ::=   DI usuario DI USU DI usuario DF                                        {::}
-                |DI Tienda DI TCS DI Tienda DF                                           {::}
-                |DI Producto DI PCS DI Producto DF                                       {::}
+CONTENIDOP ::=   DI usuario DI LOG  DI usuario DF                                       {::}
+                |DI Tienda DI TCS DI Tienda DF                                          {::}
+                |DI usuario DI R1  DI usuario DF                                       {::}
+                |DI Producto DI PCS DI Producto DF                                      {::}
                 |DI ERR DI ERRC DI ERR DF                                               {::}
                 |LISTA                                                                  {::};
 
@@ -79,9 +83,7 @@ POCP ::=     DI FILA DI numero DI FILA DF                                       
 PC ::=   DI Producto DI PINFO DI Producto DF                                            {::};
 
 TC ::=   DI Tienda DI TINFO DI Tienda DF                                                                          {::};
-
-USU ::=  LOG                                                                            {::}
-        |R1                                                                           {::};
+                                                                  
 
 PINFO ::=    PINFO PINFOP                                                               {::}
             |PINFOP                                                                     {::};
@@ -105,12 +107,13 @@ TINFOP ::=   DI Codigo DI numero DI Codigo DF                                   
             |DI Direccion DI cadena DI Direccion DF                                     {::}
             |DI Telefono DI numero DI Telefono DF                                       {::};
 
- PCS ::= PR
-        |PM
-        |PE;
+PCS ::= PR                                                                             {::}
+        |PM                                                                             {::}
+        |PE                                                                             {::};
 
-TCS ::= TM
-        |TE;
+TCS ::= TM                                                                              {::}
+        |TE                                                                             {::};
+
 PR ::=  DI Registro Id Igual numero Sucursal Igual numero DI bool  DI Registro DF       {::};
 
 PM ::=  DI Modificar Id Igual numero Sucursal Igual numero DI bool DI Modificar DF      {::};
@@ -134,31 +137,39 @@ R1 ::= DI Registro Id Igual numero:val1 DI bool:val2  DI Registro DF            
 :};
 
 LOG ::=  LOG:val1 DATALOGP:val2                                                         {:  RESULT = new Acess();
-                                                                                            if(val1.getId!=null){
-                                                                                                RESULT.setId(val1.getId());
-                                                                                                RESULT.setValor(val2.getValor());
-                                                                                                RESULT.concatenar(val1.getreply());
-                                                                                                RESULT.concatenar(val2.getreply());
+                                                                                            Acess valor1 = val1;
+                                                                                            Acess valor2 = val2;
+                                                                                            if(valor1.getId()!=null){
+                                                                                                RESULT.setId(valor1.getId());
+                                                                                                RESULT.setValor(valor2.getValor());
+                                                                                                RESULT.concatenar(valor1.getreply());
+                                                                                                RESULT.concatenar(valor2.getreply());
                                                                                             }else{
-                                                                                                RESULT.setId(val2.getId());
-                                                                                                RESULT.setValor(val1.getValor());
-                                                                                                RESULT.concatenar(val1.getreply());
-                                                                                                RESULT.concatenar(val2.getreply());
+                                                                                                RESULT.setId(valor2.getId());
+                                                                                                RESULT.setValor(valor1.getValor());
+                                                                                                RESULT.concatenar(valor1.getreply());
+                                                                                                RESULT.concatenar(valor2.getreply());
                                                                                             }
-                                                                                            if(RESULT.getValor().equals("true")){
-                                                                                                usuario.setId(Integer.parseInt(RESULT.getId()));
-                                                                                                Catalogo_Tiendas.get_tiendas();
-                                                                                                Log_in.setVisible(false);
-                                                                                                JOptionPane.showMessageDialog(null,"Bienvenido usuario " + RESULT.getId() + "\n En Momentos se mostrara la ventana de Tiendas en Respuesta al Servidor... se Paciente");
-                                                                                            }else if(RESULT.getValor().equals("false")){
-                                                                                                JOptionPane.showMessageDialog(null,"Error: Acesso Denegado, la contraseña es incorrecta");
-                                                                                            }else if(RESULT.getValor().equals("fail")){
-                                                                                                JOptionPane.showMessageDialog(null,"Error: Acesso Fallido, no Existe Usuario");
+                                                                                            switch (RESULT.getValor()) {
+                                                                                                case "true":
+                                                                                                    usuario.setId(Integer.parseInt(RESULT.getId()));
+                                                                                                    Catalogo_Tiendas.get_tiendas();
+                                                                                                    Log_in.setVisible(false);
+                                                                                                    JOptionPane.showMessageDialog(null,"Bienvenido usuario " + RESULT.getId() + "\n En Momentos se mostrara la ventana de Tiendas en Respuesta al Servidor... se Paciente");
+                                                                                                    break;
+                                                                                                case "false":
+                                                                                                    JOptionPane.showMessageDialog(null,"Error: Acesso Denegado, la contraseña es incorrecta");
+                                                                                                    break;
+                                                                                                case "fail":
+                                                                                                    JOptionPane.showMessageDialog(null,"Error: Acesso Fallido, no Existe Usuario");
+                                                                                                    break;
+                                                                                                default:
+                                                                                                    break;
                                                                                             }
 :}
         |DATALOGP:val                                                                   {:  RESULT = new Acess();
                                                                                             RESULT = val;
-};
+:};
 
 DATALOGP ::=  DI Id DI numero:val DI Id DF                                              {:  RESULT = new Acess();
                                                                                             RESULT.setId(val);
