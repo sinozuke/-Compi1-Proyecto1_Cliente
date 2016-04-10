@@ -5,7 +5,7 @@
  */
 package BackEnd.Conexion;
 
-import BackEnd.DOA.Enlace_EnvioDAO;
+import BackEnd.DOA.Interfaces.Enlace_EnvioDAO;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;

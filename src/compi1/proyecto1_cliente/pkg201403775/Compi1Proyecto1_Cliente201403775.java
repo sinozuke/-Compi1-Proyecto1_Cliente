@@ -7,7 +7,7 @@ package compi1.proyecto1_cliente.pkg201403775;
 
 import BackEnd.Conexion.Buzon;
 import BackEnd.Conexion.Enlace_Envio;
-import BackEnd.DOA.Usuario;
+import BackEnd.DOA.Objetos.Usuario;
 import FrontEnd.Consola.Interfaz_Consola;
 import FrontEnd.Producto.Interfaz_Productos;
 import FrontEnd.Tienda.Interfaz_Tiendas;

@@ -5,7 +5,7 @@
  */
 package FrontEnd.Tienda;
 
-import BackEnd.DOA.Tienda;
+import BackEnd.DOA.Objetos.Tienda;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import org.apache.soap.encoding.soapenc.Base64;

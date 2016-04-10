@@ -6,7 +6,7 @@
 package FrontEnd.Producto;
 
 
-import BackEnd.DOA.Producto;
+import BackEnd.DOA.Objetos.Producto;
 import java.util.ArrayList;
 
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.conexion;
