@@ -182,4 +182,5 @@ DATALOGP ::=  DI Id DI numero:val DI Id DF                                      
                                                                                             RESULT.concatenar("\t $access$ ");
                                                                                             RESULT.concatenar(val);
                                                                                             RESULT.concatenar(" $access-$\n");
-:};
+:}
+            |error:val DF DATALOGP                                                          {:System.out.println("error en :" + val);:};
