@@ -9,6 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import BackEnd.Analizadores.Lexico_reply;
 import BackEnd.Analizadores.AnalizadorSintactico;
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 /**
  *
@@ -35,11 +36,8 @@ public class Buzon implements Runnable{
         while(true){
             try {
                 via = Buzon1.accept();
-                String prueba = new DataInputStream(via.getInputStream()).readUTF();
-                for(int x=0;x<prueba.length();x++){
-                    System.out.println(prueba.charAt(x) + " = " + prueba.codePointAt(x));
-                }
-                ANAL_LEX = new Lexico_reply(via.getInputStream());
+                String respuesta = new DataInputStream(via.getInputStream()).readUTF();
+                ANAL_LEX = new Lexico_reply(new ByteArrayInputStream(respuesta.getBytes()));
                 ANAL_SIN = new AnalizadorSintactico(ANAL_LEX);
                 ANAL_SIN.parse();
                 via.close();

@@ -12,12 +12,11 @@ package BackEnd.DOA.Objetos;
 public class Acess {
     private String id;
     private String valor;
-    private final StringBuilder reply;
+    private String reply = "";
 
     public Acess() {
         this.id = null;
         this.valor = null;
-        this.reply = null;
     }
     
     public String getId() {
@@ -37,7 +36,7 @@ public class Acess {
     }
 
     public void concatenar(String conc){
-        this.reply.append(conc);
+        this.reply = reply + conc;
     }
 
     public String getreply(){

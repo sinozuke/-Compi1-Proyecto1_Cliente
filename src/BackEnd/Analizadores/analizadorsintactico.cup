@@ -2,10 +2,10 @@ package BackEnd.Analizadores;
 
 import java_cup.runtime.*;
 import javax.swing.JOptionPane;
-import BackEnd.DOA.Error;
-import BackEnd.DOA.Producto;
-import BackEnd.DOA.Tienda;
-import BackEnd.DOA.Acess;
+import BackEnd.DOA.Objetos.Error;
+import BackEnd.DOA.Objetos.Producto;
+import BackEnd.DOA.Objetos.Tienda;
+import BackEnd.DOA.Objetos.Acess;
 import java.util.ArrayList;
 
 /*
@@ -123,53 +123,53 @@ PE ::=  DI Eliminacion Id Igual numero Sucursal Igual numero DI bool DI Eliminac
 TM ::= DI Modificar Id Igual numero DI bool DI Modificar DF                             {::};
 TE ::= DI Eliminacion Id Igual numero DI bool DI Eliminacion DF                         {::};
 
-R1 ::= DI Registro Id Igual numero:val1 DI bool:val2  DI Registro DF                  {:  RESULT = new StringBuilder();
-                                                                                            RESULT.append("\t $registro id = ");
-                                                                                            RESULT.append(val1);
-                                                                                            RESULT.append("$ ");
-                                                                                            RESULT.append(val2);
-                                                                                            RESULT.append(" $registro-$\n");
-                                                                                            if(val2.equals("true")){
-                                                                                                JOptionPane.showMessageDialog(null,"Registro Exitoso");
-                                                                                            }else{
-                                                                                                JOptionPane.showMessageDialog(null,"El Registro del Usuario " + val1 + " ha Fallado");
-                                                                                            }
+R1 ::= DI Registro Id Igual numero:val1 DI bool:val2  DI Registro DF
+{:
+    RESULT = new StringBuilder();
+    RESULT.append("\t $registro id = ");
+    RESULT.append(val1);
+    RESULT.append("$ ");
+    RESULT.append(val2);
+    RESULT.append(" $registro-$\n");
+    if(val2.equals("true")){
+        JOptionPane.showMessageDialog(null,"Registro Exitoso");
+    }else{
+        JOptionPane.showMessageDialog(null,"El Registro del Usuario " + val1 + " ha Fallado");
+    }
 :};
 
-LOG ::=  LOG:val1 DATALOGP:val2                                                         {:  RESULT = new Acess();
-                                                                                            Acess valor1 = val1;
-                                                                                            Acess valor2 = val2;
-                                                                                            if(valor1.getId()!=null){
-                                                                                                RESULT.setId(valor1.getId());
-                                                                                                RESULT.setValor(valor2.getValor());
-                                                                                                RESULT.concatenar(valor1.getreply());
-                                                                                                RESULT.concatenar(valor2.getreply());
-                                                                                            }else{
-                                                                                                RESULT.setId(valor2.getId());
-                                                                                                RESULT.setValor(valor1.getValor());
-                                                                                                RESULT.concatenar(valor1.getreply());
-                                                                                                RESULT.concatenar(valor2.getreply());
-                                                                                            }
-                                                                                            switch (RESULT.getValor()) {
-                                                                                                case "true":
-                                                                                                    usuario.setId(Integer.parseInt(RESULT.getId()));
-                                                                                                    Catalogo_Tiendas.get_tiendas();
-                                                                                                    Log_in.setVisible(false);
-                                                                                                    JOptionPane.showMessageDialog(null,"Bienvenido usuario " + RESULT.getId() + "\n En Momentos se mostrara la ventana de Tiendas en Respuesta al Servidor... se Paciente");
-                                                                                                    break;
-                                                                                                case "false":
-                                                                                                    JOptionPane.showMessageDialog(null,"Error: Acesso Denegado, la contraseña es incorrecta");
-                                                                                                    break;
-                                                                                                case "fail":
-                                                                                                    JOptionPane.showMessageDialog(null,"Error: Acesso Fallido, no Existe Usuario");
-                                                                                                    break;
-                                                                                                default:
-                                                                                                    break;
-                                                                                            }
+LOG ::=  LOG:val1 DATALOGP:val2
+{:
+    RESULT = new Acess();
+    if(val1.getId()!=null){
+        RESULT.setId(val1.getId());
+        RESULT.setValor(val2.getValor());
+        RESULT.concatenar(val1.getreply());
+        RESULT.concatenar(val2.getreply());
+    }else{
+        RESULT.setId(val2.getId());
+        RESULT.setValor(val1.getValor());
+        RESULT.concatenar(val2.getreply());
+        RESULT.concatenar(val1.getreply());
+    }
+    switch (RESULT.getValor()) {
+        case "True":
+            usuario.setId(Integer.parseInt(RESULT.getId()));
+            Catalogo_Tiendas.get_tiendas();
+            Log_in.setVisible(false);
+            JOptionPane.showMessageDialog(null,"Bienvenido usuario " + RESULT.getId() + "\n En Momentos se mostrara la ventana de Tiendas en Respuesta al Servidor... se Paciente");
+            break;
+        case "False":
+            JOptionPane.showMessageDialog(null,"Error: Acesso Denegado, la contraseña es incorrecta");
+            break;
+        case "Fail":
+            JOptionPane.showMessageDialog(null,"Error: Acesso Fallido, no Existe Usuario");
+            break;
+        default:
+            break;
+    }
 :}
-        |DATALOGP:val                                                                   {:  RESULT = new Acess();
-                                                                                            RESULT = val;
-:};
+        |DATALOGP:val                                                                   {:  RESULT = val; :};
 
 DATALOGP ::=  DI Id DI numero:val DI Id DF                                              {:  RESULT = new Acess();
                                                                                             RESULT.setId(val);
@@ -182,5 +182,4 @@ DATALOGP ::=  DI Id DI numero:val DI Id DF                                      
                                                                                             RESULT.concatenar("\t $access$ ");
                                                                                             RESULT.concatenar(val);
                                                                                             RESULT.concatenar(" $access-$\n");
-:}
-            |error:val DF DATALOGP                                                          {:System.out.println("error en :" + val);:};
+:};

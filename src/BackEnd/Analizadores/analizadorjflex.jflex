@@ -68,7 +68,6 @@ ComentarioMultilinea= "#*" ([^*#]|[*])* "*#"
 {ComentarioLinea}       {}
 {ComentarioMultilinea}  {}
 [ \t\r\f\n]+		{}
-\0                      {}
 .			{
     System.out.println("cagada con: " + yytext() + " " + yyline + " " + yycolumn);
     for(int i=0;i<yytext().length();i++){
