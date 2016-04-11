@@ -11,6 +11,7 @@ import BackEnd.Analizadores.Lexico_reply;
 import BackEnd.Analizadores.AnalizadorSintactico;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import static java.nio.charset.StandardCharsets.UTF_8;
 /**
  *
  * @author sinozuke

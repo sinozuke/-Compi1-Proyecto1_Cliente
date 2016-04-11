@@ -131,12 +131,14 @@ R1 ::= DI Registro Id Igual numero:val1 DI bool:val2  DI Registro DF
     RESULT.append("$ ");
     RESULT.append(val2);
     RESULT.append(" $registro-$\n");
-    if(val2.equals("true")){
+    if(val2.equals("True")){
         JOptionPane.showMessageDialog(null,"Registro Exitoso");
     }else{
         JOptionPane.showMessageDialog(null,"El Registro del Usuario " + val1 + " ha Fallado");
     }
-:};
+:}
+
+        |error usuario {::};
 
 LOG ::=  LOG:val1 DATALOGP:val2
 {:

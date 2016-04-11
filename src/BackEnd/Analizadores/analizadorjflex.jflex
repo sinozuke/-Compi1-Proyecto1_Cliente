@@ -60,7 +60,7 @@ ComentarioMultilinea= "#*" ([^*#]|[*])* "*#"
 			}
 
 "True"                  {return new Symbol(Simbolo.bool, yycolumn,yyline,yytext()); }
-"Falso"                 {return new Symbol(Simbolo.bool, yycolumn,yyline,yytext()); }
+"False"                 {return new Symbol(Simbolo.bool, yycolumn,yyline,yytext()); }
 "Fail"                  {return new Symbol(Simbolo.bool, yycolumn,yyline,yytext()); }
 
 {numero}                {return new Symbol(Simbolo.numero, yycolumn,yyline,yytext()); }
