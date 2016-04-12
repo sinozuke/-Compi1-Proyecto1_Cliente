@@ -11,14 +11,14 @@ package BackEnd.DOA.Objetos;
  */
 public class Producto {
     
-    private int id;
-    private String Nombrre;
-    private int cantidad;
-    private String marca;
-    private String color;
-    private int tamaño;
-    private String img;
-    private int sucursal;
+    private int id=0;
+    private String Nombrre="vacio";
+    private int cantidad=0;
+    private String marca="vacio";
+    private String color="vacio";
+    private int tamaño=0;
+    private String img="vacio";
+    private int sucursal=0;
 
     public int getId() {
         return id;

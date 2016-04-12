@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Log_in;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Tiendas;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Productos;
 */
 
 parser code
@@ -43,11 +44,12 @@ terminal Id,Direccion,Nombre,Telefono,Codigo,Propietario,Cantidad,Marca,Color,Ta
 
 non terminal INICIA;
 non terminal StringBuilder CONTENIDO,CONTENIDOP,R1;
-non terminal Tienda TC,TM,TE,TINFO,TINFOP,TCS;
-non terminal Producto PR,PM,PE,PC,PINFO,PINFOP,PCS;
+non terminal Tienda TCP,TM,TE,TINFO,TINFOP,TCS;
+non terminal Producto PR,PM,PE,PCP,PINFO,PINFOP,PCS;
 non terminal Error ERRC,ERRCP,POC,POCP;
 non terminal Acess LOG,DATALOGP;
-non terminal ArrayList<Object> LISTA;
+non terminal ArrayList<Producto> PC;
+non terminal ArrayList<Tienda>  TC;
 
 start with INICIA;
 
@@ -61,11 +63,19 @@ CONTENIDOP ::=   DI usuario DI LOG  DI usuario DF                               
                 |DI usuario DI R1  DI usuario DF                                       {::}
                 |DI Producto DI PCS DI Producto DF                                      {::}
                 |DI ERR DI ERRC DI ERR DF                                               {::}
-                |LISTA                                                                  {::};
-
-LISTA ::= DI Lista DI PC DI Lista DF                                                    {::}
-        |DI Lista DI TC DI Lista DF                                                    {::};
-
+                |DI Lista DI PC:val  DI Lista DF
+{:
+//otro
+:}
+                |DI Lista DI TC:val  DI Lista DF
+{:
+//otro
+:}
+                |DI Lista DI DI Lista DF
+{:
+              Catalogo_Tiendas.setVisible(true);
+              JOptionPane.showMessageDialog(null, "No Tienes ninguna Tienda! :(");
+:};
 
 ERRC ::=     ERRC ERRCP                                                                 {::}
             |ERRCP                                                                      {::};
@@ -80,32 +90,151 @@ POC ::=  POC POCP                                                               
 POCP ::=     DI FILA DI numero DI FILA DF                                               {::}
             |DI COLUMNA DI numero DI COLUMNA DF                                         {::};
 
-PC ::=   DI Producto DI PINFO DI Producto DF                                            {::};
+PC ::=   PC:val1 PCP:val2
+{:
+                RESULT = val1;
+                RESULT.add(val2);
+:}
+        |PCP:val
+{:
+                RESULT = new ArrayList();
+                RESULT.add(val);
+:};
 
-TC ::=   DI Tienda DI TINFO DI Tienda DF                                                                          {::};
+TC ::=   TC:val1 TCP:val2
+{:
+                RESULT = val1;
+                RESULT.add(val2);
+:}
+        |TCP:val1
+{:
+                RESULT = new ArrayList();
+                RESULT.add(val1);
+:};
+
+PCP ::=   DI Producto DI PINFO:val DI Producto DF
+{:
+                RESULT = val;
+:};
+
+TCP ::=   DI Tienda DI TINFO:val DI Tienda DF
+{:
+                RESULT = val;
+:};
                                                                   
 
-PINFO ::=    PINFO PINFOP                                                               {::}
-            |PINFOP                                                                     {::};
+PINFO ::=    PINFO:val1 PINFOP:val2
+{:
+                RESULT = val1;
 
-TINFO ::=    TINFO TINFOP                                                               {::}
-            |TINFOP                                                                     {::};
+                if(val2.getId()!=0 && RESULT.getId()==0){
+                    RESULT.setId(val2.getId());
+                }else if(!val2.getNombrre().equals("vacio") && RESULT.getNombrre().equals("vacio")){
+                    RESULT.setNombrre(val2.getNombrre());
+                }else if(val2.getCantidad()!=0 && RESULT.getCantidad()==0){
+                    RESULT.setCantidad(val2.getCantidad());
+                }else if(!val2.getMarca().equals("vacio") && RESULT.getMarca().equals("vacio")){
+                    RESULT.setMarca(val2.getMarca());
+                }else if(!val2.getColor().equals("vacio") && RESULT.getColor().equals("vacio")){
+                    RESULT.setColor(val2.getColor());
+                }else if(val2.getTamaño()!=0 && RESULT.getTamaño()==0){
+                    RESULT.setTamaño(val2.getTamaño());
+                }else if(!val2.getImg().equals("vacio") && RESULT.getImg().equals("vacio")){
+                    RESULT.setImg(val2.getImg());
+                }else if(val2.getSucursal()!=0 && RESULT.getSucursal()==0){
+                    RESULT.setSucursal(val2.getSucursal());
+                }
+:}
+            |PINFOP:val
+{:
+                RESULT = val;
+:};
+
+TINFO ::=    TINFO:val1 TINFOP:val2
+{:		
+                RESULT = val1;
+                if(val2.getCodigo()!=0 && RESULT.getCodigo()==0){
+                    RESULT.setCodigo(val2.getCodigo());
+                }else if(!val2.getNombre().equals("vacio") && RESULT.getNombre().equals("vacio")){
+                    RESULT.setNombre(val2.getNombre());
+                }else if(val2.getPropietario()!=0 && RESULT.getPropietario()==0){
+                    RESULT.setPropietario(val2.getPropietario());
+                }else if(!val2.getDirreccion().equals("vacio") && RESULT.getDirreccion().equals("vacio")){
+                    RESULT.setDirreccion(val2.getDirreccion());
+                }else if(val2.getTelefono()!=0 && RESULT.getTelefono()==0){
+                    RESULT.setTelefono(val2.getTelefono());
+                }else if(!val2.getImg().equals("vacio") && RESULT.getImg().equals("vacio")){
+                    RESULT.setImg(val2.getImg());
+                }
+:}
+            |TINFOP:val
+{:
+                RESULT = val;
+:};
 
 
-PINFOP ::=   DI Codigo DI numero DI Codigo DF                                           {::}
-            |DI Nombre DI cadena DI Nombre DF                                           {::}
-            |DI Cantidad DI numero DI Cantidad DF                                       {::}
-            |DI Marca DI cadena DI Marca DF                                             {::}
-            |DI Color DI cadena DI Color DF                                             {::}
-            |DI Tamano DI numero DI Tamano DF                                           {::}
-            |DI Sucursal DI numero DI Sucursal DF                                       {::};
+PINFOP ::=   DI Codigo DI numero:val DI Codigo DF
+{:
+                RESULT = new Producto();
+                RESULT.setId(Integer.parseInt(val));
+:}
+            |DI Nombre DI cadena:val DI Nombre DF
+{:
+                RESULT = new Producto();
+                RESULT.setNombrre(val);
+:}
+            |DI Cantidad DI numero:val DI Cantidad DF
+{:
+                RESULT = new Producto();
+                RESULT.setCantidad(Integer.parseInt(val));
+:}
+            |DI Marca DI cadena:val DI Marca DF
+{:
+                RESULT = new Producto();
+                RESULT.setMarca(val);
+:}
+            |DI Color DI cadena:val DI Color DF
+{:
+                RESULT = new Producto();
+                RESULT.setColor(val);
+:}
+            |DI Tamano DI numero:val DI Tamano DF
+{:
+                RESULT = new Producto();
+                RESULT.setTamaño(Integer.parseInt(val));
+:}
+            |DI Sucursal DI numero:val DI Sucursal DF
+{:
+                RESULT = new Producto();
+                RESULT.setSucursal(Integer.parseInt(val));
+:};
 
 
-TINFOP ::=   DI Codigo DI numero DI Codigo DF                                           {::}
-            |DI Propietario DI numero DI Propietario DF                                 {::}
-            |DI Nombre DI cadena DI Nombre DF                                           {::}
-            |DI Direccion DI cadena DI Direccion DF                                     {::}
-            |DI Telefono DI numero DI Telefono DF                                       {::};
+TINFOP ::=   DI Codigo DI numero:val DI Codigo DF
+{:
+                RESULT = new Tienda();
+                RESULT.setCodigo(Integer.parseInt(val));
+:}
+            |DI Propietario DI numero:val DI Propietario DF
+{:
+                RESULT = new Tienda();
+                RESULT.setPropietario(Integer.parseInt(val));
+:}
+            |DI Nombre DI cadena:val DI Nombre DF
+{:
+                RESULT = new Tienda();
+                RESULT.setNombre(val);
+:}
+            |DI Direccion DI cadena:val DI Direccion DF
+{:
+                RESULT = new Tienda();
+                RESULT.setDirreccion(val);
+:}
+            |DI Telefono DI numero:val DI Telefono DF
+{:
+                RESULT = new Tienda();
+                RESULT.setTelefono(Integer.parseInt(val));
+:};
 
 PCS ::= PR                                                                             {::}
         |PM                                                                             {::}
@@ -125,63 +254,67 @@ TE ::= DI Eliminacion Id Igual numero DI bool DI Eliminacion DF                 
 
 R1 ::= DI Registro Id Igual numero:val1 DI bool:val2  DI Registro DF
 {:
-    RESULT = new StringBuilder();
-    RESULT.append("\t $registro id = ");
-    RESULT.append(val1);
-    RESULT.append("$ ");
-    RESULT.append(val2);
-    RESULT.append(" $registro-$\n");
-    if(val2.equals("True")){
-        JOptionPane.showMessageDialog(null,"Registro Exitoso");
-    }else{
-        JOptionPane.showMessageDialog(null,"El Registro del Usuario " + val1 + " ha Fallado");
-    }
+                RESULT = new StringBuilder();
+                RESULT.append("\t $registro id = ");
+                RESULT.append(val1);
+                RESULT.append("$ ");
+                RESULT.append(val2);
+                RESULT.append(" $registro-$\n");
+                if(val2.equals("True")){
+                    JOptionPane.showMessageDialog(null,"Registro Exitoso");
+                }else{
+                    JOptionPane.showMessageDialog(null,"El Registro del Usuario " + val1 + " ha Fallado");
+                }
 :}
 
         |error usuario {::};
 
 LOG ::=  LOG:val1 DATALOGP:val2
 {:
-    RESULT = new Acess();
-    if(val1.getId()!=null){
-        RESULT.setId(val1.getId());
-        RESULT.setValor(val2.getValor());
-        RESULT.concatenar(val1.getreply());
-        RESULT.concatenar(val2.getreply());
-    }else{
-        RESULT.setId(val2.getId());
-        RESULT.setValor(val1.getValor());
-        RESULT.concatenar(val2.getreply());
-        RESULT.concatenar(val1.getreply());
-    }
-    switch (RESULT.getValor()) {
-        case "True":
-            usuario.setId(Integer.parseInt(RESULT.getId()));
-            Catalogo_Tiendas.get_tiendas();
-            Log_in.setVisible(false);
-            JOptionPane.showMessageDialog(null,"Bienvenido usuario " + RESULT.getId() + "\n En Momentos se mostrara la ventana de Tiendas en Respuesta al Servidor... se Paciente");
-            break;
-        case "False":
-            JOptionPane.showMessageDialog(null,"Error: Acesso Denegado, la contraseña es incorrecta");
-            break;
-        case "Fail":
-            JOptionPane.showMessageDialog(null,"Error: Acesso Fallido, no Existe Usuario");
-            break;
-        default:
-            break;
-    }
+                RESULT = new Acess();
+                if(val1.getId()!=null){
+                    RESULT.setId(val1.getId());
+                    RESULT.setValor(val2.getValor());
+                    RESULT.concatenar(val1.getreply());
+                    RESULT.concatenar(val2.getreply());
+                }else{
+                    RESULT.setId(val2.getId());
+                    RESULT.setValor(val1.getValor());
+                    RESULT.concatenar(val2.getreply());
+                    RESULT.concatenar(val1.getreply());
+                }
+                switch (RESULT.getValor()) {
+                    case "True":
+                        usuario.setId(Integer.parseInt(RESULT.getId()));
+                        Catalogo_Tiendas.get_tiendas();
+                        Log_in.setVisible(false);
+                        JOptionPane.showMessageDialog(null,"Bienvenido usuario " + RESULT.getId() + "\n En Momentos se mostrara la ventana de Tiendas en Respuesta al Servidor... se Paciente");
+                        break;
+                    case "False":
+                        JOptionPane.showMessageDialog(null,"Error: Acesso Denegado, la contraseña es incorrecta");
+                        break;
+                    case "Fail":
+                        JOptionPane.showMessageDialog(null,"Error: Acesso Fallido, no Existe Usuario");
+                        break;
+                    default:
+                        break;
+                }
 :}
         |DATALOGP:val                                                                   {:  RESULT = val; :};
 
-DATALOGP ::=  DI Id DI numero:val DI Id DF                                              {:  RESULT = new Acess();
-                                                                                            RESULT.setId(val);
-                                                                                            RESULT.concatenar("\t $id$ ");
-                                                                                            RESULT.concatenar(val);
-                                                                                            RESULT.concatenar(" $id-$\n");
+DATALOGP ::=  DI Id DI numero:val DI Id DF                                              
+{:
+                RESULT = new Acess();
+                RESULT.setId(val);
+                RESULT.concatenar("\t $id$ ");
+                RESULT.concatenar(val);
+                RESULT.concatenar(" $id-$\n");
 :}
-             |DI Access DI bool:val DI Access DF                                        {:  RESULT = new Acess();
-                                                                                            RESULT.setValor(val);
-                                                                                            RESULT.concatenar("\t $access$ ");
-                                                                                            RESULT.concatenar(val);
-                                                                                            RESULT.concatenar(" $access-$\n");
+             |DI Access DI bool:val DI Access DF
+{:
+                RESULT = new Acess();
+                RESULT.setValor(val);
+                RESULT.concatenar("\t $access$ ");
+                RESULT.concatenar(val);
+                RESULT.concatenar(" $access-$\n");
 :};
