@@ -348,7 +348,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
             try{
                 enviado.writeUTF(MessageFormat.format(  "$request$\n" +
                                                             "$get tipo=\"tiendas\" propietario={0} -$\n" +
-                                                        "$resquest-$", propietario));
+                                                        "$request-$", propietario));
                 this.Terminar_Conexion();
                 return true;
             }catch(Exception ex){
@@ -367,7 +367,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
             try{
                 enviado.writeUTF(MessageFormat.format(  "$request$\n" +
                                                             "$get tipo=\"productos\" propietario={0} sucursal={1} -$\n" +
-                                                        "$resquest-$", propietario, sucursal));
+                                                        "$request-$", propietario, sucursal));
                 this.Terminar_Conexion();
                 return true;
             }catch(Exception ex){
