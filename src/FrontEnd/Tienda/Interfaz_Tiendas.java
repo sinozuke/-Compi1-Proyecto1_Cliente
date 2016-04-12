@@ -286,7 +286,6 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        catalogo_tiendas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         catalogo_tiendas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 catalogo_tiendasItemStateChanged(evt);
