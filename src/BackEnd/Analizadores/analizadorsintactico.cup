@@ -65,16 +65,90 @@ CONTENIDOP ::=   DI usuario DI LOG  DI usuario DF                               
                 |DI ERR DI ERRC DI ERR DF                                               {::}
                 |DI Lista DI PC:val  DI Lista DF
 {:
-//otro
+                StringBuilder RESULT2 = new StringBuilder();
+                RESULT2.append("\t$Lista$\n");
+                val.stream().forEach((Producto p)->{
+                    Catalogo_Productos.agregar_Producto(p);
+                        RESULT2.append("\t\t$producto$\n");
+                        RESULT2.append("\t\t\t$código$");
+                        RESULT2.append(p.getId());
+                        RESULT2.append("$código-$\n");
+                        RESULT2.append("\t\t\t$nombre$");
+                        RESULT2.append("\"");
+                        RESULT2.append(p.getNombrre());
+                        RESULT2.append("\"");
+                        RESULT2.append("$nombre-$\n");
+                        RESULT2.append("\t\t\t$cantidad$");
+                        RESULT2.append(p.getCantidad());
+                        RESULT2.append("$cantidad-$\n");
+                        RESULT2.append("\t\t\t$marca$");
+                        RESULT2.append("\"");
+                        RESULT2.append(p.getMarca());
+                        RESULT2.append("\"");
+                        RESULT2.append("$marca-$\n");
+                        RESULT2.append("\t\t\t$color$");
+                        RESULT2.append("\"");
+                        RESULT2.append(p.getColor());
+                        RESULT2.append("\"");
+                        RESULT2.append("$color-$\n");
+                        RESULT2.append("\t\t\t$tamaño$");
+                        RESULT2.append(p.getTamaño());
+                        RESULT2.append("$tamaño-$\n");
+                        RESULT2.append("\t\t\t$sucursal$");
+                        RESULT2.append(p.getSucursal());
+                        RESULT2.append("$sucursal-$\n");
+                        RESULT2.append("\t\t$producto-$\n");
+                });
+                RESULT2.append("\t$Lista-$\n");
+                RESULT = RESULT2;
+                
+                Catalogo_Productos.carga_productos();
+                Catalogo_Productos.setVisible(true);
 :}
                 |DI Lista DI TC:val  DI Lista DF
 {:
-//otro
+                StringBuilder RESULT2 = new StringBuilder();
+                RESULT2.append("\t$Lista$\n");
+                val.stream().forEach((Tienda t)->{
+                    Catalogo_Tiendas.ingresar_tienda(t);
+                    RESULT2.append("$tienda$\n");
+                    RESULT2.append("$codigo$");
+                    RESULT2.append(t.getCodigo());
+                    RESULT2.append("$codigo-$\n");
+                    RESULT2.append("$propietario$");
+                    RESULT2.append(t.getPropietario());
+                    RESULT2.append("$propietario-$\n");
+                    RESULT2.append("$nombre$");
+                    RESULT2.append("\"");
+                    RESULT2.append(t.getNombre());
+                    RESULT2.append("\"");
+                    RESULT2.append("$nombre-$\n");
+                    RESULT2.append("$direccion$");
+                    RESULT2.append("\"");
+                    RESULT2.append(t.getDirreccion());
+                    RESULT2.append("\"");
+                    RESULT2.append("$direccion-$\n");
+                    RESULT2.append("$telefono$");
+                    RESULT2.append(t.getTelefono());
+                    RESULT2.append("$telefono-$\n");
+                    RESULT2.append("$tienda-$\n");
+                });
+                RESULT2.append("\t$Lista-$\n");
+                RESULT = RESULT2;
+                
+                Catalogo_Tiendas.cargar_tiendas();
+                Catalogo_Tiendas.setVisible(true);
 :}
                 |DI Lista DI DI Lista DF
 {:
-              Catalogo_Tiendas.setVisible(true);
-              JOptionPane.showMessageDialog(null, "No Tienes ninguna Tienda! :(");
+                if(Catalogo_Tiendas.isVisible()){
+                    Catalogo_Tiendas.setVisible(false);
+                    Catalogo_Productos.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "No Posees Productos! :(");
+                }else{
+                    Catalogo_Tiendas.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "No Posees Tiendas! :(");
+                }
 :};
 
 ERRC ::=     ERRC ERRCP                                                                 {::}
