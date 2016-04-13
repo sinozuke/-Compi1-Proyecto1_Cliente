@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.conexion;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Tiendas;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.apache.soap.encoding.soapenc.Base64;
@@ -84,7 +85,9 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     
     private ImageIcon retornarimagen(String codigo_img){
         try{
-            return new ImageIcon(Base64.decode(codigo_img));
+            ImageIcon foto = new ImageIcon(Base64.decode(codigo_img));
+            ImageIcon imagen = new ImageIcon(foto.getImage().getScaledInstance(lblimg.getWidth(), lblimg.getHeight(), Image.SCALE_DEFAULT));
+            return imagen;
         }catch(Exception ex){
             System.out.println(ex.getCause());
             return null;

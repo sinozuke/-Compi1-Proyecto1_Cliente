@@ -42,10 +42,10 @@ ComentarioMultilinea= "#*" ([^*#]|[*])* "*#"
 "columna"               {return new Symbol(Simbolo.COLUMNA,yycolumn,yyline,yytext());}
 "descripcion"           {return new Symbol(Simbolo.DESC,yycolumn,yyline,yytext());}
 "lista"         	{return new Symbol(Simbolo.Lista, yycolumn,yyline,yytext()); }
-"dirección"      	{return new Symbol(Simbolo.Direccion, yycolumn,yyline,yytext()); }
+"direccion"      	{return new Symbol(Simbolo.Direccion, yycolumn,yyline,yytext()); }
 "nombre"                {return new Symbol(Simbolo.Nombre, yycolumn,yyline,yytext()); }
 "telefono"      	{return new Symbol(Simbolo.Telefono, yycolumn,yyline,yytext()); }
-"código"                {return new Symbol(Simbolo.Codigo, yycolumn,yyline,yytext()); }
+"codigo"                {return new Symbol(Simbolo.Codigo, yycolumn,yyline,yytext()); }
 "propietario"      	{return new Symbol(Simbolo.Propietario, yycolumn,yyline,yytext()); }
 "cantidad"              {return new Symbol(Simbolo.Cantidad, yycolumn,yyline,yytext()); }
 "marca"                 {return new Symbol(Simbolo.Marca, yycolumn,yyline,yytext()); }

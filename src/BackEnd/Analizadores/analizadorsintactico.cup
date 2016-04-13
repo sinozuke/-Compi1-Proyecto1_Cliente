@@ -50,6 +50,7 @@ non terminal Error ERRC,ERRCP,POC,POCP;
 non terminal Acess LOG,DATALOGP;
 non terminal ArrayList<Producto> PC;
 non terminal ArrayList<Tienda>  TC;
+non terminal TR;
 
 start with INICIA;
 
@@ -323,8 +324,18 @@ PCS ::= PR                                                                      
         |PM                                                                             {::}
         |PE                                                                             {::};
 
-TCS ::= TM                                                                              {::}
+TCS ::=  TR                                                                              {::}
+        |TM                                                                              {::}
         |TE                                                                             {::};
+
+TR ::= DI Registro Id Igual numero:val1 DI bool:val2  DI Registro DF
+{:
+    if(val2.equals("True")){
+        JOptionPane.showMessageDialog(null,"Registro Exitoso de Tienda No."+val1);
+    }else if(val2.equals("False")){
+        JOptionPane.showMessageDialog(null,"Registro Erroneo de tienda");
+    }
+:};
 
 PR ::=  DI Registro Id Igual numero Sucursal Igual numero DI bool  DI Registro DF       {::};
 

@@ -7,6 +7,7 @@ package FrontEnd.Tienda;
 
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.conexion;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Tiendas;
+import java.awt.Image;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -44,7 +45,9 @@ public class Interfaz_Tienda_Nuevo extends javax.swing.JFrame {
     
     private void mostrarimagen(){
         try{
-            lblimg.setIcon(new ImageIcon(path));
+            ImageIcon foto = new ImageIcon(path);
+            ImageIcon imagen = new ImageIcon(foto.getImage().getScaledInstance(lblimg.getWidth(), lblimg.getHeight(), Image.SCALE_DEFAULT));
+            lblimg.setIcon(imagen);
             lblimg.setText("");
         }catch(Exception ex){
             System.out.println(ex.getCause());
