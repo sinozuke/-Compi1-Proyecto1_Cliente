@@ -11,7 +11,7 @@ import BackEnd.Analizadores.Lexico_reply;
 import BackEnd.Analizadores.AnalizadorSintactico;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
-import static java.nio.charset.StandardCharsets.UTF_8;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.consola;
 /**
  *
  * @author sinozuke
@@ -38,6 +38,7 @@ public class Buzon implements Runnable{
             try {
                 via = Buzon1.accept();
                 String respuesta = new DataInputStream(via.getInputStream()).readUTF();
+                consola.txtsalida.setText(respuesta);
                 ANAL_LEX = new Lexico_reply(new ByteArrayInputStream(respuesta.getBytes()));
                 ANAL_SIN = new AnalizadorSintactico(ANAL_LEX);
                 ANAL_SIN.parse();

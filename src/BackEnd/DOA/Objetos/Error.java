@@ -10,10 +10,10 @@ package BackEnd.DOA.Objetos;
  * @author sinozuke
  */
 public class Error {
-    private String tipo;
-    private String Descripccion;
-    private int fila;
-    private int columna;
+    private String tipo="vacio";
+    private String Descripccion="vacio";
+    private int fila=0;
+    private int columna=0;
 
     public int getFila() {
         return fila;

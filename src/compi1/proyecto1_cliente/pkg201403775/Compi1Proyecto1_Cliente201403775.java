@@ -12,6 +12,8 @@ import FrontEnd.Consola.Interfaz_Consola;
 import FrontEnd.Producto.Interfaz_Productos;
 import FrontEnd.Tienda.Interfaz_Tiendas;
 import FrontEnd.Usuario.Interfaz_Login;
+import BackEnd.DOA.Objetos.Error;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,7 +33,7 @@ public class Compi1Proyecto1_Cliente201403775 {
     public static Interfaz_Tiendas Catalogo_Tiendas;
     public static Interfaz_Productos Catalogo_Productos;
     public static Enlace_Envio conexion = new Enlace_Envio();
-    
+    public static ArrayList<Error> errores = new ArrayList();
     
     public static void main(String[] args) {
         // TODO code application logic here

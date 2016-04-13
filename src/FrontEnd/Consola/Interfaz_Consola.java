@@ -11,10 +11,10 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.errores;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.conexion;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import BackEnd.DOA.Objetos.Error;
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,7 +29,6 @@ import javax.swing.JOptionPane;
  */
 public class Interfaz_Consola extends javax.swing.JFrame implements Runnable{
 
-    private ArrayList<Error> errores;
     private PdfWriter instance;
     private Document errorpdf;
     private PdfPTable tabla;
@@ -51,10 +50,6 @@ public class Interfaz_Consola extends javax.swing.JFrame implements Runnable{
     public Interfaz_Consola() {
         initComponents();
         fuente.setSize(18);
-    }
-
-    public void setErrores(ArrayList<Error> errores) {
-        this.errores = errores;
     }
         
     private void cargar(){
@@ -335,7 +330,7 @@ public class Interfaz_Consola extends javax.swing.JFrame implements Runnable{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea txtconsola;
-    private javax.swing.JTextArea txtsalida;
+    public javax.swing.JTextArea txtsalida;
     // End of variables declaration//GEN-END:variables
 
 }

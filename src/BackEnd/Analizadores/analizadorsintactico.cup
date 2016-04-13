@@ -13,6 +13,7 @@ import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente20140
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Tiendas;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Productos;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.errores;
 */
 
 parser code
@@ -63,7 +64,10 @@ CONTENIDOP ::=   DI usuario DI LOG  DI usuario DF                               
                 |DI Tienda DI TCS DI Tienda DF                                          {::}
                 |DI usuario DI R1  DI usuario DF                                       {::}
                 |DI Producto DI PCS DI Producto DF                                      {::}
-                |DI ERR DI ERRC DI ERR DF                                               {::}
+                |DI ERR DI ERRC:val DI ERR DF
+{:
+                    errores.add(val);
+:}
                 |DI Lista DI PC:val  DI Lista DF
 {:
                 StringBuilder RESULT2 = new StringBuilder();
@@ -161,18 +165,63 @@ CONTENIDOP ::=   DI usuario DI LOG  DI usuario DF                               
                 }
 :};
 
-ERRC ::=     ERRC ERRCP                                                                 {::}
-            |ERRCP                                                                      {::};
+ERRC ::=     ERRC:val1 ERRCP:val2
+{:
+            RESULT = val1;
+            if(!val2.getTipo().equals("vacio") && RESULT.getTipo().equals("vacio")){
+                RESULT.setTipo(val2.getTipo());
+            }else if(!val2.getDescripccion().equals("vacio") && RESULT.getDescripccion().equals("vacio")){
+                RESULT.setDescripccion(val2.getDescripccion());
+            }else if(val2.getFila()!=0 && RESULT.getFila()==0){
+                RESULT.setFila(val2.getFila());
+            }else if(val2.getColumna()!=0 && RESULT.getColumna()==0){
+                RESULT.setColumna(val2.getColumna());
+            }
+:}
+            |ERRCP:val
+{:
+            RESULT = val;
+:};
 
-ERRCP ::=    DI  TIPO DI cadena DI TIPO DF                                              {::}
-            |DI  PO DI POC DI PO DF                                                     {::}
-            |DI DESC DI cadena DI DESC DF                                               {::};
+ERRCP ::=    DI  TIPO DI cadena:val DI TIPO DF
+{:
+                RESULT = new Error();
+                RESULT.setTipo(val);
+:}
+            |DI  PO DI POC:val DI PO DF
+{:
+                RESULT = val;
+:}
+            |DI DESC DI cadena:val DI DESC DF
+{:
+                RESULT = new Error();
+                RESULT.setDescripccion(val);    
+:};
 
-POC ::=  POC POCP                                                                       {::}
-        |POCP                                                                           {::};
+POC ::=  POC:val1 POCP:val2
+{:
+            RESULT = val1;
+            if(val2.getFila()!=0 && RESULT.getFila()==0){
+                RESULT.setFila(val2.getFila());
+            }else if(val2.getColumna()!=0 && RESULT.getColumna()==0){
+                RESULT.setColumna(val2.getColumna());
+            }
+:}
+        |POCP:val
+{:
+            RESULT = val;
+:};
 
-POCP ::=     DI FILA DI numero DI FILA DF                                               {::}
-            |DI COLUMNA DI numero DI COLUMNA DF                                         {::};
+POCP ::=     DI FILA DI numero:val DI FILA DF
+{:
+                RESULT = new Error();
+                RESULT.setFila(Integer.parseInt(val));
+:}
+            |DI COLUMNA DI numero:val DI COLUMNA DF
+{:
+                RESULT = new Error();
+                RESULT.setColumna(Integer.parseInt(val));
+:};
 
 PC ::=   PC:val1 PCP:val2
 {:
@@ -337,14 +386,51 @@ TR ::= DI Registro Id Igual numero:val1 DI bool:val2  DI Registro DF
     }
 :};
 
-PR ::=  DI Registro Id Igual numero Sucursal Igual numero DI bool  DI Registro DF       {::};
+PR ::=  DI Registro Id Igual numero:val1 Sucursal Igual numero:val2 DI bool:val3  DI Registro DF
+{:
+    if(val3.equals("True")){
+        JOptionPane.showMessageDialog(null,"Registro Exitoso de producto No."+val1 + " de la sucursal NO."+val2);
+    }else if(val3.equals("False")){
+        JOptionPane.showMessageDialog(null,"Registro Erroneo de producto");
+    }
+:};
 
-PM ::=  DI Modificar Id Igual numero Sucursal Igual numero DI bool DI Modificar DF      {::};
+PM ::=  DI Modificar Id Igual numero:val1 Sucursal Igual numero:val2 DI bool:val3 DI Modificar DF
+{:
+    if(val3.equals("True")){
+        JOptionPane.showMessageDialog(null,"Modificacion Exitosa de Producto No."+val1 +" de la sucursal NO."+val2);
+    }else if(val3.equals("False")){
+        JOptionPane.showMessageDialog(null,"Modificacion Erronea de Producto");
+    }
 
-PE ::=  DI Eliminacion Id Igual numero Sucursal Igual numero DI bool DI Eliminacion DF  {::};
+:};
 
-TM ::= DI Modificar Id Igual numero DI bool DI Modificar DF                             {::};
-TE ::= DI Eliminacion Id Igual numero DI bool DI Eliminacion DF                         {::};
+PE ::=  DI Eliminacion Id Igual numero:val1 Sucursal Igual numero:val2 DI bool:val3 DI Eliminacion DF
+{:
+    if(val3.equals("True")){
+        JOptionPane.showMessageDialog(null,"Eliminacion Exitosa de Producto No."+val1+" de la sucural NO."+val1);
+    }else if(val3.equals("False")){
+        JOptionPane.showMessageDialog(null,"eliminacion Fallida de Teinda");
+    }
+
+:};
+
+TM ::= DI Modificar Id Igual numero:val1 DI bool:val2 DI Modificar DF
+{:
+    if(val2.equals("True")){
+        JOptionPane.showMessageDialog(null,"Modificacion Exitosa de Tienda No."+val1);
+    }else if(val2.equals("False")){
+        JOptionPane.showMessageDialog(null,"Modificacion Fallida de tienda");
+    }
+:};
+TE ::= DI Eliminacion Id Igual numero:val1 DI bool:val2 DI Eliminacion DF
+{:
+    if(val2.equals("True")){
+        JOptionPane.showMessageDialog(null,"Eliminacion Exitosa de Tienda No."+val1);
+    }else if(val2.equals("False")){
+        JOptionPane.showMessageDialog(null,"Eliminacion Erronea Erroneo de tienda");
+    }
+:};
 
 R1 ::= DI Registro Id Igual numero:val1 DI bool:val2  DI Registro DF
 {:
