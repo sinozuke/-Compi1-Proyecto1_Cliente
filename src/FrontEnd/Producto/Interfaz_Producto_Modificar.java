@@ -233,7 +233,7 @@ public class Interfaz_Producto_Modificar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcodigoKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Catalogo_Productos.setVisible(true);
+        Catalogo_Productos.get_productos();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

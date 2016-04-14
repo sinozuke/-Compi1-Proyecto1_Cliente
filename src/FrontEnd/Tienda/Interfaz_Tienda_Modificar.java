@@ -231,7 +231,7 @@ public class Interfaz_Tienda_Modificar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcodigoKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Catalogo_Tiendas.setVisible(true);
+        Catalogo_Tiendas.get_tiendas();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

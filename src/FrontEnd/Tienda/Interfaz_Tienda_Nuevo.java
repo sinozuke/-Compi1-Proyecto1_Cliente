@@ -253,7 +253,7 @@ public class Interfaz_Tienda_Nuevo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Catalogo_Tiendas.setVisible(true);
+        Catalogo_Tiendas.get_tiendas();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
