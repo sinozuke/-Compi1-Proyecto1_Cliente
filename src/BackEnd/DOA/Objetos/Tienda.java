@@ -19,7 +19,6 @@ public class Tienda {
     private String Dirreccion="vacio";
     private int telefono=0;
     private String img="vacio";
-    public static ArrayList<Producto> productos;
 
     public int getCodigo() {
         return codigo;
@@ -67,14 +66,6 @@ public class Tienda {
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public static ArrayList<Producto> getProductos() {
-        return productos;
-    }
-
-    public static void setProductos(ArrayList<Producto> productos) {
-        Tienda.productos = productos;
     }
     
 }

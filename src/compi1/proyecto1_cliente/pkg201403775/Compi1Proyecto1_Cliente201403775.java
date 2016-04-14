@@ -13,6 +13,8 @@ import FrontEnd.Producto.Interfaz_Productos;
 import FrontEnd.Tienda.Interfaz_Tiendas;
 import FrontEnd.Usuario.Interfaz_Login;
 import BackEnd.DOA.Objetos.Error;
+import BackEnd.DOA.Objetos.Producto;
+import BackEnd.DOA.Objetos.Tienda;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +31,8 @@ public class Compi1Proyecto1_Cliente201403775 {
     public static final Thread console = new Thread(consola);
     
     public static Usuario usuario = new Usuario();
+    public static ArrayList<Tienda> tiendas = new ArrayList();
+    public static ArrayList<Producto> productos = new ArrayList();
     public static Interfaz_Login Log_in;
     public static Interfaz_Tiendas Catalogo_Tiendas;
     public static Interfaz_Productos Catalogo_Productos;

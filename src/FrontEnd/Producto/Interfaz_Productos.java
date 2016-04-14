@@ -8,11 +8,11 @@ package FrontEnd.Producto;
 
 import BackEnd.DOA.Objetos.Base64;
 import BackEnd.DOA.Objetos.Producto;
-import java.util.ArrayList;
 
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.conexion;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Tiendas;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.productos;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -25,7 +25,6 @@ public class Interfaz_Productos extends javax.swing.JFrame {
 
     public static final Interfaz_Producto_Nuevo Nuevo_Producto = new Interfaz_Producto_Nuevo();
     public static final Interfaz_Producto_Modificar Modificar_Producto = new Interfaz_Producto_Modificar();
-    private ArrayList<Producto> productos;
     public Producto modificar;
     
     /**
@@ -114,7 +113,7 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     
     private void regresar(){
         this.modificar=null;
-        this.productos.clear();
+        productos.clear();
         Catalogo_Tiendas.setVisible(true);
         this.dispose();
     }

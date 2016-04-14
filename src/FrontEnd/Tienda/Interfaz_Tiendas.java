@@ -16,8 +16,8 @@ import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente20140
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Productos;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Log_in;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.tiendas;
 import java.awt.Image;
-import java.io.FileOutputStream;
 
 /**
  *
@@ -27,7 +27,6 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
 
     public static final Interfaz_Tienda_Nuevo Nueva_tienda = new Interfaz_Tienda_Nuevo();
     public static final Interfaz_Tienda_Modificar Modificar_Tienda = new Interfaz_Tienda_Modificar();
-    private ArrayList<Tienda> tiendas;
     public static Tienda modificar;
 
 
@@ -45,7 +44,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     }
     
     public void ingresar_tienda(Tienda tienda){
-        this.tiendas.add(tienda);
+        tiendas.add(tienda);
     }
     
     public void cargar_tiendas(){
@@ -180,6 +179,10 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
         tiendas = (ArrayList<Tienda>)nuevalista.clone();
         catalogo_tiendas.removeAllItems();
         this.cargar_tiendas();
+    }
+    
+    public void verificar_butones(){
+       
     }
 
     /**
