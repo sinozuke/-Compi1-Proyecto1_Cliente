@@ -6,6 +6,7 @@
 package FrontEnd.Producto;
 
 
+import BackEnd.DOA.Objetos.Base64;
 import BackEnd.DOA.Objetos.Producto;
 import java.util.ArrayList;
 
@@ -15,7 +16,6 @@ import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente20140
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import org.apache.soap.encoding.soapenc.Base64;
 
 /**
  *
@@ -85,7 +85,8 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     
     private ImageIcon retornarimagen(String codigo_img){
         try{
-            ImageIcon foto = new ImageIcon(Base64.decode(codigo_img));
+            Base64.decodeToFile(codigo_img, "imagen_decodificada.jpg");
+            ImageIcon foto = new ImageIcon("imagen_decodificada.jpg");
             ImageIcon imagen = new ImageIcon(foto.getImage().getScaledInstance(lblimg.getWidth(), lblimg.getHeight(), Image.SCALE_DEFAULT));
             return imagen;
         }catch(Exception ex){

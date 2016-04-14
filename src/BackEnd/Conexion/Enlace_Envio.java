@@ -6,14 +6,16 @@
 package BackEnd.Conexion;
 
 import BackEnd.DOA.Interfaces.Enlace_EnvioDAO;
+import BackEnd.DOA.Objetos.Base64;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.text.MessageFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.soap.encoding.soapenc.Base64;
 
 /**
  *
@@ -325,19 +327,13 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
 
     private String codigo_imagen(String path){
-        String codigo=null;
-        File file = new File(path);
-        byte[] buffer;
-        
-        try {
-            int bytes = (int) file.length();
-            buffer = new byte[bytes];
-            
-            codigo = Base64.encode(buffer); 
-
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Imagen Invalida" + ex.getCause());
-        }
+        String codigo="vacio";
+            try {
+               codigo = Base64.encodeFromFile(path);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null,"No se pudo condificar la imagen");
+                return "vacio";
+            }
         
         return codigo;
     }

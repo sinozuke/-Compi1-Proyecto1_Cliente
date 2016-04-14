@@ -5,10 +5,10 @@
  */
 package FrontEnd.Tienda;
 
+import BackEnd.DOA.Objetos.Base64;
 import BackEnd.DOA.Objetos.Tienda;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import org.apache.soap.encoding.soapenc.Base64;
 import javax.swing.JOptionPane;
 
 
@@ -17,6 +17,7 @@ import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente20140
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Log_in;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;
 import java.awt.Image;
+import java.io.FileOutputStream;
 
 /**
  *
@@ -72,7 +73,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
                 txtnombre.setText(t.getNombre());
                 txtdirreccion.setText(t.getDirreccion());
                 txttelefono.setText(String.valueOf(t.getTelefono()));
-                if(t.getImg().equals("null")){
+                if(t.getImg().equals("vacio")){
                     lblimg.setText("no imagen");
                 }else{
                     try{
@@ -143,7 +144,8 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     
     private ImageIcon retornarimagen(String codigo_img){
         try{
-            ImageIcon foto = new ImageIcon(Base64.decode(codigo_img));
+            Base64.decodeToFile(codigo_img, "outputImage.jpg");
+            ImageIcon foto = new ImageIcon("outputImage.jpg");
             ImageIcon imagen = new ImageIcon(foto.getImage().getScaledInstance(lblimg.getWidth(), lblimg.getHeight(), Image.SCALE_DEFAULT));
             return imagen;
         }catch(Exception ex){
