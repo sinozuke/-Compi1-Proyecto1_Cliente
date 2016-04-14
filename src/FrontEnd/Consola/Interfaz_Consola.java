@@ -215,7 +215,7 @@ public class Interfaz_Consola extends javax.swing.JFrame implements Runnable{
             }
         });
 
-        jButton4.setText("Limiar Consolas");
+        jButton4.setText("Limpiar Consolas");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
