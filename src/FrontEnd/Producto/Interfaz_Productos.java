@@ -121,7 +121,7 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     private void eliminar(){
         Producto eliminar = this.localizar_producto();
         if(eliminar!=null)
-            conexion.Eliminar_Producto(eliminar.getId(), eliminar.getNombrre(), String.valueOf(eliminar.getCantidad()), eliminar.getMarca(), eliminar.getColor(), String.valueOf(eliminar.getTamaño()), eliminar.getImg(), eliminar.getSucursal());
+            conexion.Eliminar_Producto(eliminar.getId(), eliminar.getNombrre(), String.valueOf(eliminar.getCantidad()), eliminar.getMarca(), eliminar.getColor(), String.valueOf(eliminar.getTamaño()), eliminar.getSucursal());
         else
             JOptionPane.showMessageDialog(this, "No se ha seleccionado un producto para realizar esta accion");
     }

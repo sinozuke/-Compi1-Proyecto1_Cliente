@@ -97,7 +97,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     }
     
     private void modificar_tienda(){
-        if(localizar_tienda()!=null){
+        if(localizar_tienda().getCodigo()!=0){
             Interfaz_Tiendas.modificar = localizar_tienda();
             this.setVisible(false);
             Interfaz_Tiendas.Modificar_Tienda.colocarinfo(modificar.getCodigo(), modificar.getPropietario(), modificar.getNombre(), modificar.getDirreccion(), modificar.getTelefono(), modificar.getImg());
@@ -108,7 +108,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     }
     
     private void Mostrar_Productos(){
-        if(localizar_tienda()!=null){
+        if(localizar_tienda().getCodigo()!=0){
             Interfaz_Tiendas.modificar = localizar_tienda();
             this.setVisible(false);
             Catalogo_Productos.get_productos();
@@ -119,7 +119,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     }
     
     private Tienda localizar_tienda(){
-        Tienda encontrada=null;
+        Tienda encontrada=new Tienda();
         tiendas.stream().forEach((Tienda t)->{
             if(t.getNombre().equals((String)catalogo_tiendas.getSelectedItem())){
                 encontrada.setCodigo(t.getCodigo());
@@ -160,7 +160,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     private void eliminar(){
         if(localizar_tienda()!=null){
             Tienda eliminar = localizar_tienda();
-            conexion.Elimnar_Tienda(eliminar.getCodigo(), eliminar.getPropietario(), eliminar.getNombre(),eliminar.getDirreccion(), eliminar.getTelefono(),eliminar.getImg());   
+            conexion.Elimnar_Tienda(eliminar.getCodigo(), eliminar.getPropietario(), eliminar.getNombre(),eliminar.getDirreccion(), eliminar.getTelefono());   
             this.setVisible(false);
             JOptionPane.showMessageDialog(this, "Esperando Respuesta Del Servidor");
         }else{

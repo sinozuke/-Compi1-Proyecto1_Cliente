@@ -28,7 +28,6 @@ public class Interfaz_Producto_Modificar extends javax.swing.JFrame {
                 txtcantidad.getText(),
                 txtcolor.getText(),
                 txttamaño.getText(),
-                "null",
                 Integer.parseInt(txtsucursal.getText()));
     }
     

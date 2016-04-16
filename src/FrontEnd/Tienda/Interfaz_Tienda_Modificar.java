@@ -36,8 +36,7 @@ public class Interfaz_Tienda_Modificar extends javax.swing.JFrame {
                 Integer.parseInt(txtid.getText()),
                 txtnombre.getText(),
                 txtdire.getText(),
-                Integer.parseInt(txttelefono.getText()),
-                path);
+                Integer.parseInt(txttelefono.getText()));
     }
     
     private void verificarnum(java.awt.event.KeyEvent evt){
