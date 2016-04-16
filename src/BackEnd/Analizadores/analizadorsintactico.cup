@@ -367,8 +367,10 @@ TE ::= DI Eliminacion Id Igual numero:val1 DI bool:val2 DI Eliminacion DF
 {:
     if(val2.equals("True")){
         JOptionPane.showMessageDialog(null,"Eliminacion Exitosa de Tienda No."+val1);
+        Catalogo_Tiendas.get_tiendas();
     }else if(val2.equals("False")){
         JOptionPane.showMessageDialog(null,"Eliminacion Erronea Erroneo de tienda");
+        Catalogo_Tiendas.setVisible(true);
     }
 :};
 

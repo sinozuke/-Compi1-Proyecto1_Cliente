@@ -515,8 +515,10 @@ class CUP$AnalizadorSintactico$actions {
 		
     if(val2.equals("True")){
         JOptionPane.showMessageDialog(null,"Eliminacion Exitosa de Tienda No."+val1);
+        Catalogo_Tiendas.get_tiendas();
     }else if(val2.equals("False")){
         JOptionPane.showMessageDialog(null,"Eliminacion Erronea Erroneo de tienda");
+        Catalogo_Tiendas.setVisible(true);
     }
 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("TE",6, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-9)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
