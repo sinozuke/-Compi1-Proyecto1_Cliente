@@ -708,7 +708,7 @@ class CUP$AnalizadorSintactico$actions {
 		String val = (String)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
 		
                 RESULT = new Tienda();
-                RESULT.setTelefono(Integer.parseInt(val));
+                RESULT.setTelefono(val);
 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("TINFOP",8, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-6)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
@@ -913,7 +913,7 @@ class CUP$AnalizadorSintactico$actions {
                     RESULT.setPropietario(val2.getPropietario());
                 }else if(!val2.getDirreccion().equals("vacio") && RESULT.getDirreccion().equals("vacio")){
                     RESULT.setDirreccion(val2.getDirreccion());
-                }else if(val2.getTelefono()!=0 && RESULT.getTelefono()==0){
+                }else if(val2.getTelefono().equals("vacio") && RESULT.getTelefono().equals("vacio")){
                     RESULT.setTelefono(val2.getTelefono());
                 }else if(!val2.getImg().equals("vacio") && RESULT.getImg().equals("vacio")){
                     RESULT.setImg(val2.getImg());

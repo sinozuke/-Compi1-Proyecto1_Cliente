@@ -84,7 +84,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
 
     @Override
-    public boolean Crear_Usuario(int id, String nombre, String apellido, String password, int telefono, String email, String dirreccion) {
+    public boolean Crear_Usuario(int id, String nombre, String apellido, String password, String telefono, String email, String dirreccion) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n"+
@@ -111,7 +111,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
 
     @Override
-    public boolean Crear_Tienda(int codigo, int propietario, String nombre, String dirreccion, int telefono, String path) {
+    public boolean Crear_Tienda(int codigo, int propietario, String nombre, String dirreccion, String telefono, String path) {
         if(this.enlazar()){
             String imagen=codigo_imagen(path);
             if(path.equals("null") || path == null){
@@ -147,17 +147,17 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
 
     @Override
-    public boolean Modificar_Tienda(int codigo, int propietario, String nombre, String dirreccion, int telefono) {
+    public boolean Modificar_Tienda(int codigo, int propietario, String nombre, String dirreccion, String telefono) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n" +
-                                                        "$tienda tipo=\"modificacion\"$\n" +
-                                                            "$codigo${0}$codigo-$\n" +
-                                                            "$propietario${1}$propietario-$\n" +
-                                                            "$nombre$\"{2}\"$nombre-$\n" +
-                                                            "$direccion$\"{3}\"$direccion-$\n" +
-                                                            "$telefono${4}$telefono-$\n" +
-                                                        "$tienda-$\n" +
+                                                        "$tienda tipo=\"modificacion\", " +
+                                                            "codigo={0}, " +
+                                                            "propietario={1}, " +
+                                                            "nombre=\"{2}\", " +
+                                                            "direccion=\"{3}\", " +
+                                                            "telefono={4} " +
+                                                        "-$\n" +
                                                     "$request-$", codigo,propietario,nombre,dirreccion,telefono));
                 this.Terminar_Conexion();
                 return true;
@@ -173,7 +173,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
     
     @Override
-    public boolean Elimnar_Tienda(int codigo, int propietario, String nombre, String dirreccion, int telefono) {
+    public boolean Elimnar_Tienda(int codigo, int propietario, String nombre, String dirreccion, String telefono) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n" +

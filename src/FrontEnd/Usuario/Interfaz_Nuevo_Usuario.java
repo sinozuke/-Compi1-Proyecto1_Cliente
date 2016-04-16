@@ -200,7 +200,7 @@ public class Interfaz_Nuevo_Usuario extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-            conexion.Crear_Usuario(Integer.parseInt(txtid.getText()), txtnombreusu.getText(), txtape.getText(), txtpass.getText(), Integer.parseInt(txttelefono.getText()), txtemail.getText(), txtdirreccion.getText());
+            conexion.Crear_Usuario(Integer.parseInt(txtid.getText()), txtnombreusu.getText(), txtape.getText(), txtpass.getText(), txttelefono.getText(), txtemail.getText(), txtdirreccion.getText());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this,"Algo Ocurrio Mal" + ex.getCause());
         }

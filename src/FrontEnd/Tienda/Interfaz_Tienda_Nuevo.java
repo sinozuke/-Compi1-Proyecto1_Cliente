@@ -38,7 +38,7 @@ public class Interfaz_Tienda_Nuevo extends javax.swing.JFrame {
             conexion.Crear_Tienda(Integer.parseInt(txtcodigo.getText()),
                     Integer.parseInt(txtid.getText()), txtnombre.getText(),
                     txtdirrec.getText(),
-                    Integer.parseInt(txttelefono.getText()),
+                    txttelefono.getText(),
                     path);
         }
     }

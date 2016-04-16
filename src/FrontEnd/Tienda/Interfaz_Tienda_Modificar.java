@@ -23,7 +23,7 @@ public class Interfaz_Tienda_Modificar extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void colocarinfo(int codigo, int propietario, String nombre, String dirreccion, int telefono, String path){
+    public void colocarinfo(int codigo, int propietario, String nombre, String dirreccion, String telefono, String path){
         txtcodigo.setText(String.valueOf(codigo));
         txtid.setText(String.valueOf(propietario));
         txtnombre.setText(nombre);
@@ -36,7 +36,7 @@ public class Interfaz_Tienda_Modificar extends javax.swing.JFrame {
                 Integer.parseInt(txtid.getText()),
                 txtnombre.getText(),
                 txtdire.getText(),
-                Integer.parseInt(txttelefono.getText()));
+                txttelefono.getText());
     }
     
     private void verificarnum(java.awt.event.KeyEvent evt){

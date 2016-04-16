@@ -234,7 +234,7 @@ TINFO ::=    TINFO:val1 TINFOP:val2
                     RESULT.setPropietario(val2.getPropietario());
                 }else if(!val2.getDirreccion().equals("vacio") && RESULT.getDirreccion().equals("vacio")){
                     RESULT.setDirreccion(val2.getDirreccion());
-                }else if(val2.getTelefono()!=0 && RESULT.getTelefono()==0){
+                }else if(val2.getTelefono().equals("vacio") && RESULT.getTelefono().equals("vacio")){
                     RESULT.setTelefono(val2.getTelefono());
                 }else if(!val2.getImg().equals("vacio") && RESULT.getImg().equals("vacio")){
                     RESULT.setImg(val2.getImg());
@@ -306,7 +306,7 @@ TINFOP ::=   DI Codigo DI numero:val DI Codigo DF
             |DI Telefono DI numero:val DI Telefono DF
 {:
                 RESULT = new Tienda();
-                RESULT.setTelefono(Integer.parseInt(val));
+                RESULT.setTelefono(val);
 :};
 
 PCS ::= PR                                                                             {::}

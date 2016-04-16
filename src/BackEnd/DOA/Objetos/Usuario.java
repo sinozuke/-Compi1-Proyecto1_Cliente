@@ -5,7 +5,6 @@
  */
 package BackEnd.DOA.Objetos;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -17,7 +16,7 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private String password;
-    private int telefono;
+    private String telefono;
     private String email;
     private String dirreccion;
 
@@ -53,11 +52,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
