@@ -5,6 +5,7 @@
  */
 package FrontEnd.Usuario;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.conexion;
+import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.Catalogo_Tiendas;
 import javax.swing.JOptionPane;
 
 /**
@@ -114,6 +115,7 @@ public class Interfaz_Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(txtid.getText().length() !=0 && txtpass.getText().length() != 0){
+            Catalogo_Tiendas.setVisible(true);
             conexion.Conectar(txtid.getText(), txtpass.getText());
         }else{
             JOptionPane.showMessageDialog(this,"Deve llenar todos los campos");

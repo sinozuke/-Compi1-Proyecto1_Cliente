@@ -112,9 +112,9 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     private void Mostrar_Productos(){
         if(localizar_tienda().getCodigo()!=0){
             Interfaz_Tiendas.modificar = localizar_tienda();
-            this.setVisible(false);
-            Catalogo_Productos.get_productos();
             Catalogo_Productos.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Esperando productos del server");
+            Catalogo_Productos.get_productos();
         }else{
             JOptionPane.showMessageDialog(this, "no se ha encontrado la tienda para mostrar sus productos");
         }
@@ -471,8 +471,8 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnmodiActionPerformed
 
     private void btnmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmostrarActionPerformed
+        this.setVisible(false);
         this.Mostrar_Productos();
-        this.setEnabled(false);
     }//GEN-LAST:event_btnmostrarActionPerformed
 
     private void txtcodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoKeyTyped

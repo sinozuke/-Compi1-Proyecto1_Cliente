@@ -526,8 +526,8 @@ class CUP$AnalizadorSintactico$actions {
 		String val2 = (String)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
 		
     if(val2.equals("True")){
-        JOptionPane.showMessageDialog(null,"Eliminacion Exitosa de Tienda No."+val1);
         Catalogo_Tiendas.get_tiendas();
+        JOptionPane.showMessageDialog(null,"Eliminacion Exitosa de Tienda No."+val1);
     }else if(val2.equals("False")){
         JOptionPane.showMessageDialog(null,"Eliminacion Erronea Erroneo de tienda");
         Catalogo_Tiendas.setVisible(true);
@@ -1259,15 +1259,12 @@ class CUP$AnalizadorSintactico$actions {
             {
               Object RESULT =null;
 				
-                if(Catalogo_Tiendas.isVisible()){
-                    Catalogo_Tiendas.setVisible(false);
-                    Catalogo_Productos.setVisible(true);
+                if(Catalogo_Productos.isVisible()){
                     JOptionPane.showMessageDialog(null, "No Posees Productos! :(");
                     Catalogo_Productos.btnmodi.setEnabled(false);
                     Catalogo_Productos.catalogo_productos.setEnabled(false);
                     Catalogo_Productos.btneli.setEnabled(false);
-                }else{
-                    Catalogo_Tiendas.setVisible(true);
+                }else if(!Catalogo_Tiendas.isVisible()){
                     JOptionPane.showMessageDialog(null, "No Posees Tiendas! :(");
                     Catalogo_Tiendas.btneliminar.setEnabled(false);
                     Catalogo_Tiendas.btnmodi.setEnabled(false);
