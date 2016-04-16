@@ -36,6 +36,7 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     }
 
     public void get_productos(){
+        productos.clear();
         this.catalogo_productos.removeAllItems();
         conexion.get_Productos(usuario.getId(), Catalogo_Tiendas.seleccionar_productos().getCodigo());
     }

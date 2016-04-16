@@ -40,6 +40,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     }
     
     public void get_tiendas(){
+        tiendas.clear();
         this.catalogo_tiendas.removeAllItems();
         conexion.get_Tiendas(usuario.getId());
     }
