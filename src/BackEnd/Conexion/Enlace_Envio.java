@@ -177,13 +177,13 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n" +
-                                                        "$tienda tipo=\"Eliminar\"$\n" +
-                                                            "$codigo${0}$codigo-$\n" +
-                                                            "$propietario${1}$propietario-$\n" +
-                                                            "$nombre$\"{2}\"$nombre-$\n" +
-                                                            "$direccion$\"{3}\"$direccion-$\n" +
-                                                            "$telefono${4}$telefono-$\n" +
-                                                        "$tienda-$\n" +
+                                                        "$tienda tipo=\"Eliminar\", " +
+                                                            "codigo={0}, " +
+                                                            "propietario={1}, " +
+                                                            "nombre=\"{2}\", " +
+                                                            "direccion=\"{3}\", " +
+                                                            "telefono={4} " +
+                                                        "-$\n" +
                                                     "$request-$", codigo,propietario,nombre,dirreccion,telefono));
                 this.Terminar_Conexion();
                 return true;
