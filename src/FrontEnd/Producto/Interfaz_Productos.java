@@ -86,7 +86,7 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     
     private ImageIcon retornarimagen(String codigo_img){
         try{
-            ImageIcon foto = new ImageIcon(Base64.decode(codigo_img));
+            ImageIcon foto = new ImageIcon(this.localizar_producto().getImg().replaceAll("\"", ""));
             ImageIcon imagen = new ImageIcon(foto.getImage().getScaledInstance(lblimg.getWidth(), lblimg.getHeight(), Image.SCALE_DEFAULT));
             return imagen;
         }catch(Exception ex){
