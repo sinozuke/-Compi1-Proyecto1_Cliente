@@ -911,8 +911,6 @@ class CUP$AnalizadorSintactico$actions {
                     RESULT.setDirreccion(val2.getDirreccion());
                 }else if(!val2.getTelefono().equals("vacio") && RESULT.getTelefono().equals("vacio")){
                     RESULT.setTelefono(val2.getTelefono());
-                }else if(!val2.getImg().equals("vacio") && RESULT.getImg().equals("vacio")){
-                    RESULT.setImg(val2.getImg());
                 }
 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("TINFO",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -958,8 +956,6 @@ class CUP$AnalizadorSintactico$actions {
                     RESULT.setColor(val2.getColor());
                 }else if(val2.getTamaño()!=0 && RESULT.getTamaño()==0){
                     RESULT.setTamaño(val2.getTamaño());
-                }else if(!val2.getImg().equals("vacio") && RESULT.getImg().equals("vacio")){
-                    RESULT.setImg(val2.getImg());
                 }else if(val2.getSucursal()!=0 && RESULT.getSucursal()==0){
                     RESULT.setSucursal(val2.getSucursal());
                 }
@@ -1217,7 +1213,7 @@ class CUP$AnalizadorSintactico$actions {
             {
               Object RESULT =null;
 				
-                if(Catalogo_Tiendas.isVisible()){
+                if(!Catalogo_Tiendas.isEnabled()){
                     Catalogo_Tiendas.setVisible(false);
                     Catalogo_Productos.setVisible(true);
                     JOptionPane.showMessageDialog(null, "No Posees Productos! :(");

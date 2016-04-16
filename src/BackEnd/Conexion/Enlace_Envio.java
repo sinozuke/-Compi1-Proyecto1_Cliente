@@ -112,15 +112,15 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
 
     @Override
     public boolean Crear_Tienda(int codigo, int propietario, String nombre, String dirreccion, String telefono, String path) {
-        if(this.enlazar()){
-            String imagen=codigo_imagen(path);
-            if(path.equals("null") || path == null){
-                JOptionPane.showInternalMessageDialog(null, "deve de incluir una imagen para la tienda obligatoriamente");
-                return false;
-            }else if(imagen==null){
-                JOptionPane.showInternalMessageDialog(null, "la imagen no ha podido convertirse");
-                return false;
-            }else{
+        String imagen=codigo_imagen(path);
+        if(path.equals("null") || path == null){
+            JOptionPane.showInternalMessageDialog(null, "deve de incluir una imagen para la tienda obligatoriamente");
+            return false;
+        }else if(imagen==null){
+            JOptionPane.showInternalMessageDialog(null, "la imagen no ha podido convertirse");
+            return false;
+        }else{
+            if(this.enlazar()){
                         try{
                             enviado.writeUTF(MessageFormat.format("$request$\n" +
                                                     "$tienda tipo=\"crear\"$\n" +
@@ -129,9 +129,9 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
                                                         "$nombre$\"{2}\"$nombre-$\n" +
                                                         "$direccion$\"{3}\"$direccion-$\n" +
                                                         "$telefono${4}$telefono-$\n" +
-                                                        "$img${5}$img-$\n" +
+                                                        "$img$\"{5}$\"$img-$\n" +
                                                     "$tienda-$\n" +
-                                                "$request-$", codigo,propietario,nombre,dirreccion,telefono,path));
+                                                "$request-$", codigo,propietario,nombre,dirreccion,telefono,imagen));
                     this.Terminar_Conexion();
                     return true;
                 }catch(Exception ex){
@@ -139,10 +139,10 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
                     this.Terminar_Conexion();
                     return false;
                 }
+            }else{
+                System.out.println("imposible conectar al socket");
+                return false;
             }
-        }else{
-            System.out.println("imposible conectar al socket");
-            return false;
         }
     }
 
@@ -200,41 +200,37 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     
     @Override
     public boolean CrearProducto(int codigo, String nombre, String Cantidad, String marca, String color, String Tamaño, String path, int sucursal) {
-        if(this.enlazar()){
-            String imagen=codigo_imagen(path);
-            if(path.equals("null") || path==null){
-                JOptionPane.showMessageDialog(null, "path de la imagen nulo, no se encontro archivo");
-                return false;
-            }else if(imagen==null){
-                JOptionPane.showInternalMessageDialog(null, "la imagen no ha podido convertirse");
-                return false;
-            }else{
-               return this.creaproducto(codigo, nombre, Cantidad, marca, color, Tamaño, imagen, sucursal);
-            }
+        String imagen=codigo_imagen(path);
+        if(path.equals("null") || path==null){
+            JOptionPane.showMessageDialog(null, "path de la imagen nulo, no se encontro archivo");
+            return false;
+        }else if(imagen==null){
+            JOptionPane.showInternalMessageDialog(null, "la imagen no ha podido convertirse");
+            return false;
         }else{
-            System.out.println("imposible conectar al socket");
-            return false;
-        }
-    }
-    
-    private boolean creaproducto(int codigo, String nombre, String Cantidad, String marca, String color, String Tamaño, String path, int sucursal){
-        try{
-            enviado.writeUTF(MessageFormat.format("$request$\n" +
-                                                    "$producto tipo=\"crear\"$\n" +
-                                                        "$código${0}$código-$\n" +
-                                                        "$nombre$\"{1}\"$nombre-$\n" +
-                                                        "$cantidad$\"{2}\"$cantidad-$//Es lo mismo que $cantidad$ 265 $cantidad-$\n" +
-                                                        "$marca$\"{3}\"$marca-$\n" +
-                                                        "$color$\"4\"$color-$\n" +
-                                                        "$tamaño${5}$tamaño-$\n" +
-                                                        "$img$\"{6}\"$img-$\n" +
-                                                        "$sucursal${7}$sucursal-$\n" +
-                                                    "$producto-$\n" +
-                                                "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, path, sucursal));
-            return true;
-        }catch(Exception ex){
-            System.out.println(ex.getCause());
-            return false;
+            if(this.enlazar()){
+                try{
+                    enviado.writeUTF(MessageFormat.format("$request$\n" +
+                                                            "$producto tipo=\"crear\"$\n" +
+                                                                "$codigo${0}$codigo-$\n" +
+                                                                "$nombre$\"{1}\"$nombre-$\n" +
+                                                                "$cantidad$\"{2}\"$cantidad-$\n" +
+                                                                "$marca$\"{3}\"$marca-$\n" +
+                                                                "$color$\"4\"$color-$\n" +
+                                                                "$tamaño${5}$tamaño-$\n" +
+                                                                "$img$\"{6}\"$img-$\n" +
+                                                                "$sucursal${7}$sucursal-$\n" +
+                                                            "$producto-$\n" +
+                                                        "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, path, sucursal));
+                    return true;
+                }catch(Exception ex){
+                    System.out.println(ex.getCause());
+                    return false;
+                }
+            }else{
+                System.out.println("imposible conectar al socket");
+                return false;
+            }
         }
     }
 
@@ -243,15 +239,15 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n" +
-                                                        "$producto tipo=\"modificar\"$\n" +
-                                                            "$código${0}$código-$\n" +
-                                                            "$nombre$\"{1}\"$nombre-$\n" +
-                                                            "$cantidad$\"{2}\"$cantidad-$//Es lo mismo que $cantidad$ 265 $cantidad-$\n" +
-                                                            "$marca$\"{3}\"$marca-$\n" +
-                                                            "$color$\"4\"$color-$\n" +
-                                                            "$tamaño${5}$tamaño-$\n" +
-                                                            "$sucursal${7}$sucursal-$\n" +
-                                                        "$producto-$\n" +
+                                                        "$producto tipo=\"modificar\", " +
+                                                            "codigo={0}, " +
+                                                            "nombre=\"{1}\", " +
+                                                            "cantidad=\"{2}\", " +
+                                                            "marca=\"{3}\", " +
+                                                            "color=\"4\", " +
+                                                            "tamaño={5}, " +
+                                                            "sucursal={7} " +
+                                                        "-$\n" +
                                                     "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, sucursal));
                 return true;
             }catch(Exception ex){
@@ -270,14 +266,14 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n" +
-                                                        "$producto tipo=\"eliminar\"$\n" +
-                                                            "$código${0}$código-$\n" +
-                                                            "$nombre$\"{1}\"$nombre-$\n" +
-                                                            "$cantidad$\"{2}\"$cantidad-$//Es lo mismo que $cantidad$ 265 $cantidad-$\n" +
-                                                            "$marca$\"{3}\"$marca-$\n" +
-                                                            "$color$\"4\"$color-$\n" +
-                                                            "$tamaño${5}$tamaño-$\n" +
-                                                            "$sucursal${6}$sucursal-$\n" +
+                                                        "$producto tipo=\"eliminar\", " +
+                                                            "codigo={0}, " +
+                                                            "nombre=\"{1}\", " +
+                                                            "cantidad=\"{2}\", " +
+                                                            "marca=\"{3}\", " +
+                                                            "color=\"4\", " +
+                                                            "tamaño={5}, " +
+                                                            "sucursal={7} " +
                                                         "$producto-$\n" +
                                                     "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, sucursal));
                 this.Terminar_Conexion();

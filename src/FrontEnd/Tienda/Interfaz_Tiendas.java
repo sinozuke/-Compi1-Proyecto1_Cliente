@@ -473,6 +473,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
 
     private void btnmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmostrarActionPerformed
         this.Mostrar_Productos();
+        this.setEnabled(false);
     }//GEN-LAST:event_btnmostrarActionPerformed
 
     private void txtcodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoKeyTyped
