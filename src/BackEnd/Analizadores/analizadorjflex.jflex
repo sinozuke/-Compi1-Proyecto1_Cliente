@@ -51,7 +51,7 @@ ComentarioMultilinea= "#*" ([^*#]|[*])* "*#"
 "marca"                 {return new Symbol(Simbolo.Marca, yycolumn,yyline,yytext()); }
 "color"                 {return new Symbol(Simbolo.Color, yycolumn,yyline,yytext()); }
 "tamaño"                {return new Symbol(Simbolo.Tamano, yycolumn,yyline,yytext()); }
-
+"img"                   {return new Symbol(Simbolo.imagen, yycolumn,yyline,yytext()); }
 "="                     {return new Symbol(Simbolo.Igual, yycolumn,yyline,yytext()); }
 {cadena}		{	String str=yytext();
                      		str = str.substring(1,str.length()-1);

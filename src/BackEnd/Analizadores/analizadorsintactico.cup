@@ -38,7 +38,7 @@ action code
 		
 :}
 terminal String numero,cadena,bool;
-terminal DI,DF,Igual;
+terminal DI,DF,Igual,imagen;
 terminal Reply,Access,Registro,Modificar,Eliminacion,Tienda,usuario,Producto,ERR,Lista;
 terminal TIPO,PO,FILA,COLUMNA,DESC;
 terminal Id,Direccion,Nombre,Telefono,Codigo,Propietario,Cantidad,Marca,Color,Tamano,Sucursal;
@@ -276,6 +276,11 @@ PINFOP ::=   DI Codigo DI numero:val DI Codigo DF
 {:
                 RESULT = new Producto();
                 RESULT.setSucursal(Integer.parseInt(val));
+:}
+            |DI imagen DI cadena:val DI imagen DF
+{:
+                RESULT = new Producto();
+                RESULT.setImg(val.replaceAll("\"",""));
 :};
 
 
@@ -303,6 +308,11 @@ TINFOP ::=   DI Codigo DI numero:val DI Codigo DF
 {:
                 RESULT = new Tienda();
                 RESULT.setTelefono(val);
+:}
+            |DI imagen DI cadena:val DI imagen DF
+{:
+                RESULT = new Tienda();
+                RESULT.setImg(val.replaceAll("\"",""));
 :};
 
 PCS ::= PR                                                                             {::}

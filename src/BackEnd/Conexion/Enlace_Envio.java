@@ -130,8 +130,9 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
                                                         "$direccion$\"{3}\"$direccion-$\n" +
                                                         "$telefono${4}$telefono-$\n" +
                                                         "$img$\"{5}$\"$img-$\n" +
+                                                        "$cimg$\"{6}$\"$cimg-$\n" +
                                                     "$tienda-$\n" +
-                                                "$request-$", codigo,propietario,nombre,dirreccion,telefono,imagen));
+                                                "$request-$", codigo,propietario,nombre,dirreccion,telefono,path,imagen));
                     this.Terminar_Conexion();
                     return true;
                 }catch(Exception ex){
@@ -219,9 +220,10 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
                                                                 "$color$\"4\"$color-$\n" +
                                                                 "$tamaño${5}$tamaño-$\n" +
                                                                 "$img$\"{6}\"$img-$\n" +
-                                                                "$sucursal${7}$sucursal-$\n" +
+                                                                "$cimg$\"{7}\"$cimg-$\n" +
+                                                                "$sucursal${8}$sucursal-$\n" +
                                                             "$producto-$\n" +
-                                                        "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, path, sucursal));
+                                                        "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, path,imagen, sucursal));
                     return true;
                 }catch(Exception ex){
                     System.out.println(ex.getCause());

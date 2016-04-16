@@ -18,8 +18,17 @@ public class Producto {
     private String color="vacio";
     private int tamaño=0;
     private String img="vacio";
+    private String cimg="vacio";
     private int sucursal=0;
 
+    public String getCimg() {
+        return cimg;
+    }
+
+    public void setCimg(String cimg) {
+        this.cimg = cimg;
+    }
+    
     public int getId() {
         return id;
     }
