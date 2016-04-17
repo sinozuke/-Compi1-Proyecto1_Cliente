@@ -144,14 +144,9 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     }
     
     private ImageIcon retornarimagen(String codigo_img){
-        try{
-            ImageIcon foto = new ImageIcon(this.localizar_tienda().getImg().replaceAll("\"", "").substring(0, this.localizar_tienda().getImg().length()-1));
-            ImageIcon imagen = new ImageIcon(foto.getImage().getScaledInstance(lblimg.getWidth(), lblimg.getHeight(), Image.SCALE_DEFAULT));
-            return imagen;
-        }catch(Exception ex){
-            System.out.println(ex.getCause());
-            return null;
-        }
+        ImageIcon foto = new ImageIcon(codigo_img);
+        ImageIcon imagen = new ImageIcon(foto.getImage().getScaledInstance(lblimg.getWidth(), lblimg.getHeight(), Image.SCALE_DEFAULT));
+        return imagen;
     }
     
     private void agregar_tienda(Tienda tienda){
