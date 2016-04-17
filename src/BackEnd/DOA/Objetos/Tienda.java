@@ -17,15 +17,6 @@ public class Tienda {
     private String Dirreccion="vacio";
     private String telefono="vacio";
     private String img="vacio";
-    private String cimg="vacio";
-
-    public String getCimg() {
-        return cimg;
-    }
-
-    public void setCimg(String cimg) {
-        this.cimg = cimg;
-    }
     
     public int getCodigo() {
         return codigo;
