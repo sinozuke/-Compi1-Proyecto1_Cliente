@@ -5,7 +5,6 @@
  */
 package FrontEnd.Tienda;
 
-import BackEnd.DOA.Objetos.Base64;
 import BackEnd.DOA.Objetos.Tienda;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -28,6 +27,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     public static final Interfaz_Tienda_Nuevo Nueva_tienda = new Interfaz_Tienda_Nuevo();
     public static final Interfaz_Tienda_Modificar Modificar_Tienda = new Interfaz_Tienda_Modificar();
     public static Tienda modificar;
+    public boolean este=false;
 
 
     /**
@@ -451,6 +451,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.este=false;
         this.salir();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -472,6 +473,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
 
     private void btnmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmostrarActionPerformed
         this.setVisible(false);
+        Catalogo_Productos.esta=true;
         this.Mostrar_Productos();
     }//GEN-LAST:event_btnmostrarActionPerformed
 

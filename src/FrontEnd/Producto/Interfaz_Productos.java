@@ -5,8 +5,6 @@
  */
 package FrontEnd.Producto;
 
-
-import BackEnd.DOA.Objetos.Base64;
 import BackEnd.DOA.Objetos.Producto;
 
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.conexion;
@@ -26,6 +24,7 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     public static final Interfaz_Producto_Nuevo Nuevo_Producto = new Interfaz_Producto_Nuevo();
     public static final Interfaz_Producto_Modificar Modificar_Producto = new Interfaz_Producto_Modificar();
     public Producto modificar;
+    public boolean esta=false;
     
     /**
      * Creates new form Interfaz_Productos
@@ -436,6 +435,7 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.esta=false;
         this.regresar();
     }//GEN-LAST:event_jButton4ActionPerformed
 

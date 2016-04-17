@@ -1259,12 +1259,12 @@ class CUP$AnalizadorSintactico$actions {
             {
               Object RESULT =null;
 				
-                if(Catalogo_Productos.isVisible()){
+                if(Catalogo_Productos.esta){
                     JOptionPane.showMessageDialog(null, "No Posees Productos! :(");
                     Catalogo_Productos.btnmodi.setEnabled(false);
                     Catalogo_Productos.catalogo_productos.setEnabled(false);
                     Catalogo_Productos.btneli.setEnabled(false);
-                }else if(!Catalogo_Tiendas.isVisible()){
+                }else if(Catalogo_Tiendas.este){
                     JOptionPane.showMessageDialog(null, "No Posees Tiendas! :(");
                     Catalogo_Tiendas.btneliminar.setEnabled(false);
                     Catalogo_Tiendas.btnmodi.setEnabled(false);

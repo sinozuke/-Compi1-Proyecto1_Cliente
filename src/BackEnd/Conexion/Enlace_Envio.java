@@ -224,9 +224,11 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
                                                                 "$sucursal${8}$sucursal-$\n" +
                                                             "$producto-$\n" +
                                                         "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, path,imagen, sucursal));
+                    this.Terminar_Conexion();
                     return true;
                 }catch(Exception ex){
                     System.out.println(ex.getCause());
+                    this.Terminar_Conexion();
                     return false;
                 }
             }else{
@@ -251,6 +253,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
                                                             "sucursal={7} " +
                                                         "-$\n" +
                                                     "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, sucursal));
+                this.Terminar_Conexion();
                 return true;
             }catch(Exception ex){
                 System.out.println(ex.getCause());
