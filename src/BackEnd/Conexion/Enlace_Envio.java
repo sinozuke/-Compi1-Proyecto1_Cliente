@@ -6,13 +6,11 @@
 package BackEnd.Conexion;
 
 import BackEnd.DOA.Interfaces.Enlace_EnvioDAO;
-import BackEnd.DOA.Objetos.Base64;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.text.MessageFormat;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -112,39 +110,30 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
 
     @Override
     public boolean Crear_Tienda(int codigo, int propietario, String nombre, String dirreccion, String telefono, String path) {
-        String imagen=codigo_imagen(path);
-        if(path.equals("null") || path == null){
-            JOptionPane.showInternalMessageDialog(null, "deve de incluir una imagen para la tienda obligatoriamente");
-            return false;
-        }else if(imagen==null){
-            JOptionPane.showInternalMessageDialog(null, "la imagen no ha podido convertirse");
-            return false;
-        }else{
-            if(this.enlazar()){
-                        try{
-                            enviado.writeUTF(MessageFormat.format("$request$\n" +
-                                                    "$tienda tipo=\"crear\"$\n" +
-                                                        "$codigo${0}$codigo-$\n" +
-                                                        "$propietario${1}$propietario-$\n" +
-                                                        "$nombre$\"{2}\"$nombre-$\n" +
-                                                        "$direccion$\"{3}\"$direccion-$\n" +
-                                                        "$telefono${4}$telefono-$\n" +
-                                                        "$img$\"{5}$\"$img-$\n" +
-                                                        "$cimg$\"{6}$\"$cimg-$\n" +
-                                                    "$tienda-$\n" +
-                                                "$request-$", codigo,propietario,nombre,dirreccion,telefono,path,imagen));
-                    this.Terminar_Conexion();
-                    return true;
-                }catch(Exception ex){
-                    System.out.println(ex.getCause());
-                    this.Terminar_Conexion();
-                    return false;
-                }
-            }else{
-                System.out.println("imposible conectar al socket");
+        if(this.enlazar()){
+                    try{
+                        enviado.writeUTF(MessageFormat.format("$request$\n" +
+                                                "$tienda tipo=\"crear\"$\n" +
+                                                    "$codigo${0}$codigo-$\n" +
+                                                    "$propietario${1}$propietario-$\n" +
+                                                    "$nombre$\"{2}\"$nombre-$\n" +
+                                                    "$direccion$\"{3}\"$direccion-$\n" +
+                                                    "$telefono${4}$telefono-$\n" +
+                                                    "$img$\"{5}$\"$img-$\n" +
+                                                "$tienda-$\n" +
+                                            "$request-$", codigo,propietario,nombre,dirreccion,telefono,path));
+                this.Terminar_Conexion();
+                return true;
+            }catch(Exception ex){
+                System.out.println(ex.getCause());
+                this.Terminar_Conexion();
                 return false;
             }
+        }else{
+            System.out.println("imposible conectar al socket");
+            return false;
         }
+
     }
 
     @Override
@@ -201,40 +190,30 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     
     @Override
     public boolean CrearProducto(int codigo, String nombre, String Cantidad, String marca, String color, String Tamaño, String path, int sucursal) {
-        String imagen=codigo_imagen(path);
-        if(path.equals("null") || path==null){
-            JOptionPane.showMessageDialog(null, "path de la imagen nulo, no se encontro archivo");
-            return false;
-        }else if(imagen==null){
-            JOptionPane.showInternalMessageDialog(null, "la imagen no ha podido convertirse");
-            return false;
-        }else{
-            if(this.enlazar()){
-                try{
-                    enviado.writeUTF(MessageFormat.format("$request$\n" +
-                                                            "$producto tipo=\"crear\"$\n" +
-                                                                "$codigo${0}$codigo-$\n" +
-                                                                "$nombre$\"{1}\"$nombre-$\n" +
-                                                                "$cantidad$\"{2}\"$cantidad-$\n" +
-                                                                "$marca$\"{3}\"$marca-$\n" +
-                                                                "$color$\"4\"$color-$\n" +
-                                                                "$tamaño${5}$tamaño-$\n" +
-                                                                "$img$\"{6}\"$img-$\n" +
-                                                                "$cimg$\"{7}\"$cimg-$\n" +
-                                                                "$sucursal${8}$sucursal-$\n" +
-                                                            "$producto-$\n" +
-                                                        "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, path,imagen, sucursal));
-                    this.Terminar_Conexion();
-                    return true;
-                }catch(Exception ex){
-                    System.out.println(ex.getCause());
-                    this.Terminar_Conexion();
-                    return false;
-                }
-            }else{
-                System.out.println("imposible conectar al socket");
+        if(this.enlazar()){
+            try{
+                enviado.writeUTF(MessageFormat.format("$request$\n" +
+                                                        "$producto tipo=\"crear\"$\n" +
+                                                            "$codigo${0}$codigo-$\n" +
+                                                            "$nombre$\"{1}\"$nombre-$\n" +
+                                                            "$cantidad$\"{2}\"$cantidad-$\n" +
+                                                            "$marca$\"{3}\"$marca-$\n" +
+                                                            "$color$\"4\"$color-$\n" +
+                                                            "$tamaño${5}$tamaño-$\n" +
+                                                            "$img$\"{6}\"$img-$\n" +
+                                                            "$sucursal${8}$sucursal-$\n" +
+                                                        "$producto-$\n" +
+                                                    "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, path, sucursal));
+                this.Terminar_Conexion();
+                return true;
+            }catch(Exception ex){
+                System.out.println(ex.getCause());
+                this.Terminar_Conexion();
                 return false;
             }
+        }else{
+            System.out.println("imposible conectar al socket");
+            return false;
         }
     }
 
@@ -294,18 +273,6 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
         }
     }
 
-    private String codigo_imagen(String path){
-        String codigo="vacio";
-            try {
-               codigo = Base64.encodeFromFile(path);
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null,"No se pudo condificar la imagen");
-                return "vacio";
-            }
-        
-        return codigo;
-    }
-  
     @Override
     public boolean get_Tiendas(int propietario) {
         if(this.enlazar()){
