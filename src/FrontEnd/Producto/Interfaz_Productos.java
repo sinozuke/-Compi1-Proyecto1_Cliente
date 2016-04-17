@@ -5,7 +5,7 @@
  */
 package FrontEnd.Producto;
 
-import BackEnd.DOA.Objetos.Producto;
+import BackEnd.DOA.Objetos.Relevantes.Producto;
 
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.conexion;
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.usuario;

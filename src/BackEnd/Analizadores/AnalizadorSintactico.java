@@ -13,10 +13,10 @@ import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente20140
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.errores;
 import java_cup.runtime.*;
 import javax.swing.JOptionPane;
-import BackEnd.DOA.Objetos.Error;
-import BackEnd.DOA.Objetos.Producto;
-import BackEnd.DOA.Objetos.Tienda;
-import BackEnd.DOA.Objetos.Acess;
+import BackEnd.DOA.Objetos.Sistema.Error;
+import BackEnd.DOA.Objetos.Relevantes.Producto;
+import BackEnd.DOA.Objetos.Relevantes.Tienda;
+import BackEnd.DOA.Objetos.Sistema.Acess;
 import java.util.ArrayList;
 
 /** CUP v0.11a beta 20060608 generated parser.

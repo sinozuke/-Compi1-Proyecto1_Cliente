@@ -7,14 +7,14 @@ package compi1.proyecto1_cliente.pkg201403775;
 
 import BackEnd.Conexion.Buzon;
 import BackEnd.Conexion.Enlace_Envio;
-import BackEnd.DOA.Objetos.Usuario;
+import BackEnd.DOA.Objetos.Relevantes.Usuario;
 import FrontEnd.Consola.Interfaz_Consola;
 import FrontEnd.Producto.Interfaz_Productos;
 import FrontEnd.Tienda.Interfaz_Tiendas;
 import FrontEnd.Usuario.Interfaz_Login;
-import BackEnd.DOA.Objetos.Error;
-import BackEnd.DOA.Objetos.Producto;
-import BackEnd.DOA.Objetos.Tienda;
+import BackEnd.DOA.Objetos.Sistema.Error;
+import BackEnd.DOA.Objetos.Relevantes.Producto;
+import BackEnd.DOA.Objetos.Relevantes.Tienda;
 import java.util.ArrayList;
 
 /**

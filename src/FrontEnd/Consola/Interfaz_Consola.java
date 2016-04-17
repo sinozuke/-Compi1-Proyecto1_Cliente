@@ -15,7 +15,7 @@ import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente20140
 import static compi1.proyecto1_cliente.pkg201403775.Compi1Proyecto1_Cliente201403775.conexion;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import BackEnd.DOA.Objetos.Error;
+import BackEnd.DOA.Objetos.Sistema.Error;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

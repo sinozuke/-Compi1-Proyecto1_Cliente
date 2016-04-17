@@ -5,7 +5,7 @@
  */
 package FrontEnd.Tienda;
 
-import BackEnd.DOA.Objetos.Tienda;
+import BackEnd.DOA.Objetos.Relevantes.Tienda;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
