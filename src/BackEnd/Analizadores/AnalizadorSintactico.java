@@ -572,11 +572,13 @@ class CUP$AnalizadorSintactico$actions {
 		int val3right = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
 		String val3 = (String)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
 		
-    if(val3.equals("True")){
-        JOptionPane.showMessageDialog(null,"Eliminacion Exitosa de Producto No."+val1+" de la sucural NO."+val1);
-    }else if(val3.equals("False")){
-        JOptionPane.showMessageDialog(null,"eliminacion Fallida de Teinda");
-    }
+                if(val3.equals("True")){
+                    Catalogo_Productos.get_productos();
+                    JOptionPane.showMessageDialog(null,"Eliminacion Exitosa de Producto No."+val1+" de la sucural NO."+val1);
+                }else if(val3.equals("False")){
+                    JOptionPane.showMessageDialog(null,"eliminacion Fallida de Teinda");
+                    Catalogo_Productos.setVisible(true);
+                }
 
 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("PE",12, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-12)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);

@@ -42,6 +42,13 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     public void get_tiendas(){
         tiendas.clear();
         this.catalogo_tiendas.removeAllItems();
+        this.txtcodigo.setText("");
+        this.txtdirreccion.setText("");
+        this.txtid.setText("");
+        this.txtid.setText("");
+        this.txtcodigo.setText("");
+        this.txttelefono.setText("");
+        this.lblimg.setIcon(null);
         conexion.get_Tiendas(String.valueOf(usuario.getId()));
     }
     

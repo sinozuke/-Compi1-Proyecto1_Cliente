@@ -36,6 +36,14 @@ public class Interfaz_Productos extends javax.swing.JFrame {
 
     public void get_productos(){
         productos.clear();
+        this.txtcantidad.setText("");
+        this.txtcodigo.setText("");
+        this.txtcolor.setText("");
+        this.txtmarca.setText("");
+        this.txtnombre.setText("");
+        this.txtsucursal.setText("");
+        this.txttamaño.setText("");
+        this.lblimg.setIcon(null);
         this.catalogo_productos.removeAllItems();
         conexion.get_Productos(String.valueOf(usuario.getId()),String.valueOf(Catalogo_Tiendas.seleccionar_productos().getCodigo()));
     }
@@ -118,11 +126,14 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     }
     
     private void eliminar(){
-        Producto eliminar = this.localizar_producto();
-        if(eliminar!=null)
+        if(this.localizar_producto()!=null){
+            Producto eliminar = this.localizar_producto();
             conexion.Eliminar_Producto(String.valueOf(eliminar.getId()), eliminar.getNombrre(), String.valueOf(eliminar.getCantidad()), eliminar.getMarca(), eliminar.getColor(), String.valueOf(eliminar.getTamaño()), String.valueOf(eliminar.getSucursal()));
-        else
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Esperando Respuesta del Servidor");
+        }else{
             JOptionPane.showMessageDialog(this, "No se ha seleccionado un producto para realizar esta accion");
+        }
     }
     
     private void Crear_Nuevo(){

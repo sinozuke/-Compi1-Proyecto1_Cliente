@@ -258,7 +258,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
                                                             "color=\"4\", " +
                                                             "tamaño={5}, " +
                                                             "sucursal={6} " +
-                                                        "$producto-$\n" +
+                                                        "-$\n" +
                                                     "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, sucursal));
                 this.Terminar_Conexion();
                 return true;

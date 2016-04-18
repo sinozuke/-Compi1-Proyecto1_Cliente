@@ -364,11 +364,13 @@ PM ::=  DI Modificar Id Igual numero:val1 Sucursal Igual numero:val2 DI bool:val
 
 PE ::=  DI Eliminacion Id Igual numero:val1 Sucursal Igual numero:val2 DI bool:val3 DI Eliminacion DF
 {:
-    if(val3.equals("True")){
-        JOptionPane.showMessageDialog(null,"Eliminacion Exitosa de Producto No."+val1+" de la sucural NO."+val1);
-    }else if(val3.equals("False")){
-        JOptionPane.showMessageDialog(null,"eliminacion Fallida de Teinda");
-    }
+                if(val3.equals("True")){
+                    Catalogo_Productos.get_productos();
+                    JOptionPane.showMessageDialog(null,"Eliminacion Exitosa de Producto No."+val1+" de la sucural NO."+val1);
+                }else if(val3.equals("False")){
+                    JOptionPane.showMessageDialog(null,"eliminacion Fallida de Teinda");
+                    Catalogo_Productos.setVisible(true);
+                }
 
 :};
 
