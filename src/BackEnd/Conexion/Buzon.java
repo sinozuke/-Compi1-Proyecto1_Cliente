@@ -38,6 +38,7 @@ public class Buzon implements Runnable{
             try {
                 via = Buzon1.accept();
                 String respuesta = new DataInputStream(via.getInputStream()).readUTF();
+                consola.txtsalida.setText("");
                 consola.txtsalida.setText(respuesta);
                 ANAL_LEX = new Lexico_reply(new ByteArrayInputStream(respuesta.getBytes()));
                 ANAL_SIN = new AnalizadorSintactico(ANAL_LEX);

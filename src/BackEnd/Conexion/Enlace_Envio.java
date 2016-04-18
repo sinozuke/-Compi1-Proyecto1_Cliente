@@ -119,7 +119,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
                                                     "$nombre$\"{2}\"$nombre-$\n" +
                                                     "$direccion$\"{3}\"$direccion-$\n" +
                                                     "$telefono${4}$telefono-$\n" +
-                                                    "$img$\"{5}$\"$img-$\n" +
+                                                    "$img$\"{5}\"$img-$\n" +
                                                 "$tienda-$\n" +
                                             "$request-$", codigo,propietario,nombre,dirreccion,telefono,path));
                 this.Terminar_Conexion();
