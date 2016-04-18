@@ -1264,12 +1264,14 @@ class CUP$AnalizadorSintactico$actions {
                     Catalogo_Productos.btnmodi.setEnabled(false);
                     Catalogo_Productos.catalogo_productos.setEnabled(false);
                     Catalogo_Productos.btneli.setEnabled(false);
+                    Catalogo_Productos.setVisible(true);
                 }else if(Catalogo_Tiendas.este){
                     JOptionPane.showMessageDialog(null, "No Posees Tiendas! :(");
                     Catalogo_Tiendas.btneliminar.setEnabled(false);
                     Catalogo_Tiendas.btnmodi.setEnabled(false);
                     Catalogo_Tiendas.btnmostrar.setEnabled(false);
                     Catalogo_Tiendas.catalogo_tiendas.setEnabled(false);
+                    Catalogo_Tiendas.setVisible(true);
                 }
 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CONTENIDOP",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1283,12 +1285,16 @@ class CUP$AnalizadorSintactico$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
 		ArrayList<Tienda> val = (ArrayList<Tienda>)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
-		
+                
                 val.stream().forEach((Tienda t)->{
                     Catalogo_Tiendas.ingresar_tienda(t);
                 });
                 
                 Catalogo_Tiendas.cargar_tiendas();
+                Catalogo_Tiendas.btneliminar.setEnabled(true);
+                Catalogo_Tiendas.btnmodi.setEnabled(true);
+                Catalogo_Tiendas.btnmostrar.setEnabled(true);
+                Catalogo_Tiendas.catalogo_tiendas.setEnabled(true);
                 Catalogo_Tiendas.setVisible(true);
 
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("CONTENIDOP",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-6)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
@@ -1307,6 +1313,9 @@ class CUP$AnalizadorSintactico$actions {
                     Catalogo_Productos.agregar_Producto(p);
                 });
                 
+                Catalogo_Productos.btnmodi.setEnabled(true);
+                Catalogo_Productos.catalogo_productos.setEnabled(true);
+                Catalogo_Productos.btneli.setEnabled(true);
                 Catalogo_Productos.carga_productos();
                 Catalogo_Productos.setVisible(true);
 

@@ -74,6 +74,9 @@ CONTENIDOP ::=   DI usuario DI LOG  DI usuario DF                               
                     Catalogo_Productos.agregar_Producto(p);
                 });
                 
+                Catalogo_Productos.btnmodi.setEnabled(true);
+                Catalogo_Productos.catalogo_productos.setEnabled(true);
+                Catalogo_Productos.btneli.setEnabled(true);
                 Catalogo_Productos.carga_productos();
                 Catalogo_Productos.setVisible(true);
 :}
@@ -83,6 +86,11 @@ CONTENIDOP ::=   DI usuario DI LOG  DI usuario DF                               
                     Catalogo_Tiendas.ingresar_tienda(t);
                 });
                 
+                Catalogo_Tiendas.btneliminar.setEnabled(true);
+                Catalogo_Tiendas.btnmodi.setEnabled(true);
+                Catalogo_Tiendas.btnmostrar.setEnabled(true);
+                Catalogo_Tiendas.catalogo_tiendas.setEnabled(true);
+                Catalogo_Tiendas.setVisible(true);
                 Catalogo_Tiendas.cargar_tiendas();
                 Catalogo_Tiendas.setVisible(true);
 :}
@@ -93,12 +101,14 @@ CONTENIDOP ::=   DI usuario DI LOG  DI usuario DF                               
                     Catalogo_Productos.btnmodi.setEnabled(false);
                     Catalogo_Productos.catalogo_productos.setEnabled(false);
                     Catalogo_Productos.btneli.setEnabled(false);
+                    Catalogo_Productos.setVisible(true);
                 }else if(Catalogo_Tiendas.este){
                     JOptionPane.showMessageDialog(null, "No Posees Tiendas! :(");
                     Catalogo_Tiendas.btneliminar.setEnabled(false);
                     Catalogo_Tiendas.btnmodi.setEnabled(false);
                     Catalogo_Tiendas.btnmostrar.setEnabled(false);
                     Catalogo_Tiendas.catalogo_tiendas.setEnabled(false);
+                    Catalogo_Tiendas.setVisible(true);
                 }
 :};
 
