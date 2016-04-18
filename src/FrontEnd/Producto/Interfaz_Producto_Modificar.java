@@ -22,13 +22,13 @@ public class Interfaz_Producto_Modificar extends javax.swing.JFrame {
     }
     
     private void modi(){
-        conexion.ModificarProducto(Integer.parseInt(txtcodigo.getText()),
+        conexion.ModificarProducto(txtcodigo.getText(),
                 txtnombre.getText(),
                 txtcantidad.getText(),
                 txtcantidad.getText(),
                 txtcolor.getText(),
                 txttamaño.getText(),
-                Integer.parseInt(txtsucursal.getText()));
+                txtsucursal.getText());
     }
     
     public void mostrarinfo(int codigo, String nombre, String Cantidad, String marca, String color, String Tamaño, String path, int sucursal){

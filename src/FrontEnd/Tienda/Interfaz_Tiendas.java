@@ -42,7 +42,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     public void get_tiendas(){
         tiendas.clear();
         this.catalogo_tiendas.removeAllItems();
-        conexion.get_Tiendas(usuario.getId());
+        conexion.get_Tiendas(String.valueOf(usuario.getId()));
     }
     
     public void ingresar_tienda(Tienda tienda){
@@ -156,7 +156,7 @@ public class Interfaz_Tiendas extends javax.swing.JFrame {
     private void eliminar(){
         if(localizar_tienda()!=null){
             Tienda eliminar = localizar_tienda();
-            conexion.Elimnar_Tienda(eliminar.getCodigo(), eliminar.getPropietario(), eliminar.getNombre(),eliminar.getDirreccion(), eliminar.getTelefono());   
+            conexion.Elimnar_Tienda(String.valueOf(eliminar.getCodigo()),String.valueOf(eliminar.getPropietario()), eliminar.getNombre(),eliminar.getDirreccion(), eliminar.getTelefono());   
             this.setVisible(false);
             JOptionPane.showMessageDialog(this, "Esperando Respuesta Del Servidor");
         }else{

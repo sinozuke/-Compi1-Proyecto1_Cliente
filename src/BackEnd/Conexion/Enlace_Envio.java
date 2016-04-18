@@ -82,7 +82,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
 
     @Override
-    public boolean Crear_Usuario(int id, String nombre, String apellido, String password, String telefono, String email, String dirreccion) {
+    public boolean Crear_Usuario(String id, String nombre, String apellido, String password, String telefono, String email, String dirreccion) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n"+
@@ -109,7 +109,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
 
     @Override
-    public boolean Crear_Tienda(int codigo, int propietario, String nombre, String dirreccion, String telefono, String path) {
+    public boolean Crear_Tienda(String codigo, String propietario, String nombre, String dirreccion, String telefono, String path) {
         if(this.enlazar()){
                     try{
                         enviado.writeUTF(MessageFormat.format("$request$\n" +
@@ -137,7 +137,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
 
     @Override
-    public boolean Modificar_Tienda(int codigo, int propietario, String nombre, String dirreccion, String telefono) {
+    public boolean Modificar_Tienda(String codigo, String propietario, String nombre, String dirreccion, String telefono) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n" +
@@ -163,7 +163,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
     
     @Override
-    public boolean Elimnar_Tienda(int codigo, int propietario, String nombre, String dirreccion, String telefono) {
+    public boolean Elimnar_Tienda(String codigo, String propietario, String nombre, String dirreccion, String telefono) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n" +
@@ -189,19 +189,19 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
     
     @Override
-    public boolean CrearProducto(int codigo, String nombre, String Cantidad, String marca, String color, String Tamaño, String path, int sucursal) {
+    public boolean CrearProducto(String codigo, String nombre, String Cantidad, String marca, String color, String Tamaño, String path, String sucursal) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n" +
                                                         "$producto tipo=\"crear\"$\n" +
                                                             "$codigo${0}$codigo-$\n" +
                                                             "$nombre$\"{1}\"$nombre-$\n" +
-                                                            "$cantidad$\"{2}\"$cantidad-$\n" +
+                                                            "$cantidad${2}$cantidad-$\n" +
                                                             "$marca$\"{3}\"$marca-$\n" +
-                                                            "$color$\"4\"$color-$\n" +
+                                                            "$color$\"{4}\"$color-$\n" +
                                                             "$tamaño${5}$tamaño-$\n" +
                                                             "$img$\"{6}\"$img-$\n" +
-                                                            "$sucursal${8}$sucursal-$\n" +
+                                                            "$sucursal${7}$sucursal-$\n" +
                                                         "$producto-$\n" +
                                                     "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, path, sucursal));
                 this.Terminar_Conexion();
@@ -218,18 +218,18 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
 
     @Override
-    public boolean ModificarProducto(int codigo, String nombre, String Cantidad, String marca, String color, String Tamaño, int sucursal) {
+    public boolean ModificarProducto(String codigo, String nombre, String Cantidad, String marca, String color, String Tamaño, String sucursal) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n" +
                                                         "$producto tipo=\"modificar\", " +
                                                             "codigo={0}, " +
                                                             "nombre=\"{1}\", " +
-                                                            "cantidad=\"{2}\", " +
+                                                            "cantidad={2}, " +
                                                             "marca=\"{3}\", " +
                                                             "color=\"4\", " +
                                                             "tamaño={5}, " +
-                                                            "sucursal={7} " +
+                                                            "sucursal={6} " +
                                                         "-$\n" +
                                                     "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, sucursal));
                 this.Terminar_Conexion();
@@ -246,18 +246,18 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
     
     @Override
-    public boolean Eliminar_Producto(int codigo, String nombre, String Cantidad, String marca, String color, String Tamaño, int sucursal) {
+    public boolean Eliminar_Producto(String codigo, String nombre, String Cantidad, String marca, String color, String Tamaño, String sucursal) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format("$request$\n" +
                                                         "$producto tipo=\"eliminar\", " +
                                                             "codigo={0}, " +
                                                             "nombre=\"{1}\", " +
-                                                            "cantidad=\"{2}\", " +
+                                                            "cantidad={2}, " +
                                                             "marca=\"{3}\", " +
                                                             "color=\"4\", " +
                                                             "tamaño={5}, " +
-                                                            "sucursal={7} " +
+                                                            "sucursal={6} " +
                                                         "$producto-$\n" +
                                                     "$request-$", codigo, nombre, Cantidad, marca, color, Tamaño, sucursal));
                 this.Terminar_Conexion();
@@ -274,7 +274,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
 
     @Override
-    public boolean get_Tiendas(int propietario) {
+    public boolean get_Tiendas(String propietario) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format(  "$request$\n" +
@@ -293,7 +293,7 @@ public class Enlace_Envio implements Enlace_EnvioDAO{
     }
 
     @Override
-    public boolean get_Productos(int propietario, int sucursal) {
+    public boolean get_Productos(String propietario, String sucursal) {
         if(this.enlazar()){
             try{
                 enviado.writeUTF(MessageFormat.format(  "$request$\n" +

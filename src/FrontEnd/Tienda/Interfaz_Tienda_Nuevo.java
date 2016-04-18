@@ -35,8 +35,8 @@ public class Interfaz_Tienda_Nuevo extends javax.swing.JFrame {
         if(txtcodigo.getText().equals("") || txtid.getText().equals("") || txtnombre.getText().equals("") || txtdirrec.getText().equals("")){
             JOptionPane.showMessageDialog(this, "alguno de los campos obligatorios esta vacio");
         }else{
-            conexion.Crear_Tienda(Integer.parseInt(txtcodigo.getText()),
-                    Integer.parseInt(txtid.getText()), txtnombre.getText(),
+            conexion.Crear_Tienda(txtcodigo.getText(),
+                    txtid.getText(), txtnombre.getText(),
                     txtdirrec.getText(),
                     txttelefono.getText(),
                     path);

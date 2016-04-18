@@ -32,8 +32,8 @@ public class Interfaz_Tienda_Modificar extends javax.swing.JFrame {
     }
        
     private void modi(){
-        conexion.Modificar_Tienda(Integer.parseInt(txtcodigo.getText()),
-                Integer.parseInt(txtid.getText()),
+        conexion.Modificar_Tienda(txtcodigo.getText(),
+                txtid.getText(),
                 txtnombre.getText(),
                 txtdire.getText(),
                 txttelefono.getText());

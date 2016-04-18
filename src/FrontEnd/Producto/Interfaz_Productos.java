@@ -37,7 +37,7 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     public void get_productos(){
         productos.clear();
         this.catalogo_productos.removeAllItems();
-        conexion.get_Productos(usuario.getId(), Catalogo_Tiendas.seleccionar_productos().getCodigo());
+        conexion.get_Productos(String.valueOf(usuario.getId()),String.valueOf(Catalogo_Tiendas.seleccionar_productos().getCodigo()));
     }
     
     public void agregar_Producto(Producto producto){
@@ -94,7 +94,7 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     }
     
     private Producto localizar_producto(){
-        Producto encontrado = null;
+        Producto encontrado = new Producto();
         productos.stream().forEach((Producto p)->{
             if(p.getNombrre().equals((String)catalogo_productos.getSelectedItem())){
                 encontrado.setCantidad(p.getCantidad());
@@ -120,7 +120,7 @@ public class Interfaz_Productos extends javax.swing.JFrame {
     private void eliminar(){
         Producto eliminar = this.localizar_producto();
         if(eliminar!=null)
-            conexion.Eliminar_Producto(eliminar.getId(), eliminar.getNombrre(), String.valueOf(eliminar.getCantidad()), eliminar.getMarca(), eliminar.getColor(), String.valueOf(eliminar.getTamaño()), eliminar.getSucursal());
+            conexion.Eliminar_Producto(String.valueOf(eliminar.getId()), eliminar.getNombrre(), String.valueOf(eliminar.getCantidad()), eliminar.getMarca(), eliminar.getColor(), String.valueOf(eliminar.getTamaño()), String.valueOf(eliminar.getSucursal()));
         else
             JOptionPane.showMessageDialog(this, "No se ha seleccionado un producto para realizar esta accion");
     }

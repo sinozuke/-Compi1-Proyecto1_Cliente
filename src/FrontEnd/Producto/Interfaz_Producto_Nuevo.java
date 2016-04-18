@@ -42,14 +42,14 @@ public class Interfaz_Producto_Nuevo extends javax.swing.JFrame {
                 || txtmarca.getText()==null
                 || txtcolor.getText()==null
                 || txttamaño.getText()==null)){
-            conexion.CrearProducto(Integer.parseInt(txtcodigo.getText()),
+            conexion.CrearProducto(txtcodigo.getText(),
                     txtnombre.getText(),
                     txtcantidad.getText(),
                     txtmarca.getText(),
                     txtcolor.getText(),
                     txttamaño.getText(),
                     path,
-                    Integer.parseInt(txtsucursal.getText()));
+                    txtsucursal.getText());
             }
         }
     
